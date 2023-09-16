@@ -11,7 +11,7 @@ function Body() {
     <>
       <Main>
         <MainWarp>
-          {/* <Logout>로그아웃</Logout> */}
+          <Logout>로그아웃</Logout>
           <Title>토끼의 발자국</Title>
           <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
 

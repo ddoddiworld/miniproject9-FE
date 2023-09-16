@@ -34,7 +34,7 @@ const Moon = styled.img`
 const Title = styled.h1`
   font-size: 70px;
   font-family: "yg-jalnan";
-  padding: 60px 0 25px;
+  padding: 60px 0 10px;
   letter-spacing: 1px;
   overflow: hidden;
   white-space: nowrap;

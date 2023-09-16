@@ -4,9 +4,10 @@
 // 로그인 전이나 로그인이 풀리면 메인화면으로 이동
 
 import React from "react";
+import Body from "../redux/components/Body/Body";
 
 function Home() {
-  return <div>Home</div>;
+  return <Body></Body>;
 }
 
 export default Home;
