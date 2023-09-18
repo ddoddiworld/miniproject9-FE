@@ -14,4 +14,25 @@
 |<img src="https://avatars.githubusercontent.com/u/130985864?v=4" width="200" height="200"/>|<img src="https://avatars.githubusercontent.com/u/93027502?v=4" width="200" height="200"/>|
 |[Xeonxoo99](https://github.com/Xeonxoo99)|[ddoddiworld](https://github.com/ddoddiworld?tab=repositories)|
 
+</br>
 
+<h3>🗂️ 프로젝트 구조 </h3>
+
+![image](https://github.com/ddoddiworld/miniproject9-fe/assets/93027502/c7b46a55-92ba-4bf7-bc73-36f4c8d3cd76)
+
+
+</br>
+
+<h3> ⚙️ 라이브러리 </h3>
+<h4>패키지</h4>
+
+|<img src="https://www.svgrepo.com/show/354262/react-router.svg" width="50" height="50">|<img src="https://tannerfriedman.com/wp-content/uploads/2022/08/91-913031_axios-axios-logo-hd-png-download.png" width="50">|<img src="https://images.velog.io/images/hyunjoong/post/c534bf30-87d9-4f5d-a600-71e3a09e3b75/image.png" width="50">|<img src="https://miro.medium.com/v2/resize:fit:400/1*0nHtg7jz-cd49KIb-Za8lg.png" width="50">
+|:---:|:---:|:---:|:---:|
+|React-router|Axios|React-quert|Redux(toolkit)|
+
+
+<h4> 디자인 요소</h4>
+
+|<img src="https://blog.kakaocdn.net/dn/d0CQ0G/btrZK2w7KA0/1mghnKxIKcqBl5JHjrEfs1/img.png" width="50" height="50">|<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbnaSdb%2FbtqWULFglBP%2FnQQEBYX58jluIDjJ2f3pXK%2Fimg.png" width="50" height="50">|
+|:---:|:---:|
+|React-router|Axios|
