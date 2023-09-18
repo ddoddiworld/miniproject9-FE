@@ -35,4 +35,4 @@
 
 |<img src="https://blog.kakaocdn.net/dn/d0CQ0G/btrZK2w7KA0/1mghnKxIKcqBl5JHjrEfs1/img.png" width="50" height="50">|<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbnaSdb%2FbtqWULFglBP%2FnQQEBYX58jluIDjJ2f3pXK%2Fimg.png" width="50" height="50">|
 |:---:|:---:|
-|React-router|Axios|
+|React-router|FontAwesomeIcon|
