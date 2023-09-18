@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const SideOverlay = styled.div`
   content: "";
@@ -50,10 +50,46 @@ const NickName = styled.div`
   justify-content: center;
 `;
 
+const NewNickName = styled.input`
+  font-family: "yg-jalnan";
+  font-size: 20px;
+  border: 2px solid #b9b9b9;
+  padding: 3px;
+  text-align: center;
+  /* padding-left: 10px; */
+  border-radius: 20px;
+  width: 140px;
+`;
+
 const UserName = styled.span`
   font-family: "yg-jalnan";
   font-size: 40px;
   border-bottom: 3px solid #b9b9b9;
+`;
+
+const NewNickBtn = styled.button`
+  font-family: "yg-jalnan";
+  border: none;
+  background-color: transparent;
+  margin-left: 5px;
+  cursor: pointer;
+
+  ${(props) =>
+    props.color === "save" &&
+    css`
+      color: #00b894;
+      &:hover {
+      }
+    `}
+
+  ${(props) =>
+    props.color === "cancel" &&
+    css`
+      color: #798389;
+      &:hover {
+        color: crimson;
+      }
+    `}
 `;
 
 const LogoutBtn = styled.button`
@@ -73,7 +109,9 @@ export default {
   ToggleBtn,
   SideOverlay,
   NickName,
+  NewNickName,
   UserName,
   UserImg,
+  NewNickBtn,
   LogoutBtn,
 };
