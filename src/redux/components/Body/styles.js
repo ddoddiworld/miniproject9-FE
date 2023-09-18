@@ -10,7 +10,7 @@ const Main = styled.div`
 const MainWarp = styled.div`
   background: linear-gradient(to bottom, #213555, #4f709c);
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
   text-align: center;
 `;
 

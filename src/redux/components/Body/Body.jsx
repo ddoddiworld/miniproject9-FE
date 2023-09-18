@@ -8,6 +8,11 @@ function Body() {
   const { Main, MainWarp, Title, SubTitle, Logout, DukdamBtn, Moon, Star } =
     styles;
 
+  const starts = [
+    { src: "./img/star2.png", top: "20%", width: "120px", alt: "star1" },
+    { src: "./img/star2.png", top: "30%", width: "130px", alt: "star2" },
+  ];
+
   return (
     <>
       {/* 로그인 안된 상태 */}
@@ -18,10 +23,65 @@ function Body() {
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
-            <Star src={star} top="20%" alt="star"></Star>
+            {/* 오른쪽별 */}
+            <Star src={star} top="19%" right="20%" alt="star"></Star>
+            <Star
+              src={star}
+              top="30%"
+              right="10%"
+              width="60px"
+              alt="star"
+            ></Star>
+            <Star
+              src={star}
+              top="43%"
+              right="12%"
+              width="80px"
+              alt="star"
+            ></Star>
+            <Star
+              src={star}
+              top="55%"
+              right="25%"
+              width="80px"
+              alt="star"
+            ></Star>
+            <Star
+              src={star}
+              top="65%"
+              right="10%"
+              width="120px"
+              alt="star"
+            ></Star>
+
+            {/* 왼쪽별 */}
+            <Star src={star} top="" left="10%" alt="star"></Star>
+            <Star
+              src={star}
+              top="22%"
+              left="32%"
+              width="60px"
+              alt="star"
+            ></Star>
+            <Star
+              src={star}
+              top="55%"
+              left="15%"
+              width="60px"
+              alt="star"
+            ></Star>
+            <Star
+              src={star}
+              top="38%"
+              left="25%"
+              width="80px"
+              alt="star"
+            ></Star>
+            <Star src={star} top="65%" left="27%" alt="star"></Star>
           </div>
 
           <DukdamBtn>로그인</DukdamBtn>
+
           <User></User>
         </MainWarp>
       </Main>
@@ -35,10 +95,14 @@ function Body() {
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
-            <Star src={star} top="20%" alt="star"></Star>
+            {starts.map((item, index) => {
+              <Star key={index} {...item}></Star>;
+            })}
           </div>
 
           <DukdamBtn>덕담 나눠주기</DukdamBtn>
+
+          <User></User>
         </MainWarp>
       </Main> */}
     </>
