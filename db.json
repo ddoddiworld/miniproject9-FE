@@ -1,0 +1,27 @@
+{
+  "sign-up": [
+    {
+      "id": 1,
+      "nickname": "홍길동",
+      "email": "qwer@qwer.com",
+      "password": "qwer1234",
+      "confirm": "qwer1234"
+    }
+  ],
+  "post": [
+    {
+      "id": 1,
+      "userId": 1,
+      "nickname": "홍길동",
+      "content": "소원을 들어줘",
+      "createdAt": "2023-09-27T07:45:56.000Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "nickname": "홍길동",
+      "content": "소원을 들어줘",
+      "createdAt": "2023-09-27T07:45:56.000Z"
+    }
+  ]
+}
