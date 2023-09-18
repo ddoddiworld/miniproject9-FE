@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Main = styled.div`
   width: 1200px;
@@ -56,35 +56,35 @@ const SubTitle = styled.p`
   font-family: "GowunBatang-Regular";
 `;
 
-const Logout = styled.span`
-  position: absolute;
-  top: 30px;
-  right: 50px;
-  font-family: "GowunBatang-Regular";
-  font-size: 18px;
-  font-weight: 600;
-
-  &:hover {
-    cursor: pointer;
-    color: #e5d283;
-    transition: 0.5s;
-  }
-`;
-
-const DukdamBtn = styled.button`
+const StyledBtn = styled.button`
   font-family: "yg-jalnan";
-  width: 200px;
   height: 60px;
   border-radius: 20px;
   font-size: 22px;
   color: #f0f0f0;
   border: none;
-  background-color: #ff6f61;
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #ff6f61;
-  }
+  ${(props) =>
+    props.size === "medium" &&
+    css`
+      background-color: #ff6f61;
+      width: 200px;
+      &:hover {
+        box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #ff6f61;
+      }
+    `}
+
+  ${(props) =>
+    props.size === "small" &&
+    css`
+      width: 90px;
+      margin-left: 10px;
+      background-color: #00b894;
+      &:hover {
+        box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #00b894;
+      }
+    `}
 `;
 
 const Star = styled.img`
@@ -116,8 +116,7 @@ export default {
   MainWarp,
   Title,
   SubTitle,
-  Logout,
-  DukdamBtn,
+  StyledBtn,
   Moon,
   Star,
 };

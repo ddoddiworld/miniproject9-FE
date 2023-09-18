@@ -5,13 +5,23 @@ import star from "../images/star2.png";
 import User from "../User/User";
 
 function Body() {
-  const { Main, MainWarp, Title, SubTitle, Logout, DukdamBtn, Moon, Star } =
-    styles;
+  const { Main, MainWarp, Title, SubTitle, StyledBtn, Moon, Star } = styles;
 
+  // 별 위치 position
   const starts = [
     { src: "./img/star2.png", top: "20%", width: "120px", alt: "star1" },
     { src: "./img/star2.png", top: "30%", width: "130px", alt: "star2" },
   ];
+
+  // 로그인
+  const logIn = () => {
+    alert("로그인 모달이 나타날 예정이에요 😉");
+  };
+
+  // 덕담 나눠주기
+  const giveDuckdom = () => {
+    alert("현재 준비 중이에요! 😉");
+  };
 
   return (
     <>
@@ -23,7 +33,7 @@ function Body() {
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
-            {/* 오른쪽별 */}
+
             <Star src={star} top="19%" right="20%" alt="star"></Star>
             <Star
               src={star}
@@ -54,7 +64,6 @@ function Body() {
               alt="star"
             ></Star>
 
-            {/* 왼쪽별 */}
             <Star src={star} top="" left="10%" alt="star"></Star>
             <Star
               src={star}
@@ -80,7 +89,9 @@ function Body() {
             <Star src={star} top="65%" left="27%" alt="star"></Star>
           </div>
 
-          <DukdamBtn>로그인</DukdamBtn>
+          <StyledBtn size={"medium"} onClick={logIn}>
+            로그인
+          </StyledBtn>
 
           <User></User>
         </MainWarp>
@@ -89,7 +100,6 @@ function Body() {
       {/* 로그인이 되어 있는 상태 */}
       {/* <Main>
         <MainWarp>
-          <Logout>로그아웃</Logout>
           <Title>토끼의 발자국</Title>
           <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
 
@@ -100,7 +110,10 @@ function Body() {
             })}
           </div>
 
-          <DukdamBtn>덕담 나눠주기</DukdamBtn>
+          <StyledBtn size={"medium"} onClick={giveDuckdom}>
+            덕담 나눠주기
+          </StyledBtn>
+          <StyledBtn size={"small"}>랜덤</StyledBtn>
 
           <User></User>
         </MainWarp>
