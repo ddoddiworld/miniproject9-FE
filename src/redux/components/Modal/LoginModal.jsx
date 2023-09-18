@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './styles';
+import { usestate } from 'react';
 
-function LoginModal() {
+function LoginModal({ isOpen, closeModal }) {
     const {
         Modal,
         ModalTitle,

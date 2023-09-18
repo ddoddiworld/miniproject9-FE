@@ -23,6 +23,7 @@ const Modal = styled.div`
     border-radius: 20px;
     padding: 30px;
     width: 450px;
+    display: ${({ display = 'display' }) => (display ? 'block' : 'none')};
 `;
 
 const ModalTitle = styled.h2`
