@@ -1,5 +1,17 @@
 import styled, { css } from "styled-components";
 
+const SideOverlay = styled.div`
+  content: "";
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 1200px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
 const Main = styled.div`
   width: 1200px;
   height: 100%;
@@ -112,6 +124,7 @@ const Star = styled.img`
 `;
 
 export default {
+  SideOverlay,
   Main,
   MainWarp,
   Title,

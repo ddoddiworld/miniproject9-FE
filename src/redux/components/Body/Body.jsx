@@ -3,9 +3,20 @@ import styles from "./styles";
 import moon from "../images/moon2.png";
 import star from "../images/star2.png";
 import User from "../User/User";
+import LoginModal from "../Modal/LoginModal";
+import { useState } from "react";
 
 function Body() {
-  const { Main, MainWarp, Title, SubTitle, StyledBtn, Moon, Star } = styles;
+  const {
+    Main,
+    MainWarp,
+    Title,
+    SubTitle,
+    StyledBtn,
+    Moon,
+    Star,
+    SideOverlay,
+  } = styles;
 
   // 별 위치 position
   const starts = [
@@ -23,8 +34,17 @@ function Body() {
   ];
 
   // 로그인
+  const [openModal, setOpenModal] = useState(false);
+  const [showOverlay, setshowOverlay] = useState(false);
+
   const logIn = () => {
-    alert("로그인 모달이 나타날 예정이에요 😉");
+    setshowOverlay(true);
+    setOpenModal(true);
+  };
+
+  const close = () => {
+    setshowOverlay(false);
+    setOpenModal(false);
   };
 
   // 덕담 나눠주기
@@ -44,18 +64,21 @@ function Body() {
         <MainWarp>
           <Title>토끼의 발자국</Title>
           <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
-
+          {showOverlay && <SideOverlay onClick={close} />} {/* 오버레이 표시 */}
+          {openModal && (
+            <>
+              <LoginModal></LoginModal>
+            </>
+          )}
           <div>
             <Moon src={moon} alt="moon"></Moon>
             {starts.map((item, index) => {
               return <Star src={star} key={index} {...item}></Star>;
             })}
           </div>
-
           <StyledBtn size={"medium"} onClick={logIn}>
             로그인
           </StyledBtn>
-
           <User></User>
         </MainWarp>
       </Main>
