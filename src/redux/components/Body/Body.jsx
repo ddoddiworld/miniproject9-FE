@@ -9,8 +9,17 @@ function Body() {
 
   // 별 위치 position
   const starts = [
-    { src: "./img/star2.png", top: "20%", width: "120px", alt: "star1" },
-    { src: "./img/star2.png", top: "30%", width: "130px", alt: "star2" },
+    { top: "19%", right: "20%", width: "100px" },
+    { top: "30%", right: "10%", width: "60px" },
+    { top: "43%", right: "12%", width: "80px" },
+    { top: "55%", right: "25%", width: "80px" },
+    { top: "65%", right: "10%", width: "120px" },
+
+    { top: "auto", left: "10%", width: "100px" },
+    { top: "22%", left: "32%", width: "60px" },
+    { top: "55%", left: "15%", width: "60px" },
+    { top: "38%", left: "25%", width: "80px" },
+    { top: "65%", left: "27%", width: "120px" },
   ];
 
   // 로그인
@@ -23,6 +32,11 @@ function Body() {
     alert("현재 준비 중이에요! 😉");
   };
 
+  // 별 추가
+  const addStar = () => {
+    alert("별을 누르면 받은 글을 볼 수 있어요.");
+  };
+
   return (
     <>
       {/* 로그인 안된 상태 */}
@@ -33,60 +47,9 @@ function Body() {
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
-
-            <Star src={star} top="19%" right="20%" alt="star"></Star>
-            <Star
-              src={star}
-              top="30%"
-              right="10%"
-              width="60px"
-              alt="star"
-            ></Star>
-            <Star
-              src={star}
-              top="43%"
-              right="12%"
-              width="80px"
-              alt="star"
-            ></Star>
-            <Star
-              src={star}
-              top="55%"
-              right="25%"
-              width="80px"
-              alt="star"
-            ></Star>
-            <Star
-              src={star}
-              top="65%"
-              right="10%"
-              width="120px"
-              alt="star"
-            ></Star>
-
-            <Star src={star} top="" left="10%" alt="star"></Star>
-            <Star
-              src={star}
-              top="22%"
-              left="32%"
-              width="60px"
-              alt="star"
-            ></Star>
-            <Star
-              src={star}
-              top="55%"
-              left="15%"
-              width="60px"
-              alt="star"
-            ></Star>
-            <Star
-              src={star}
-              top="38%"
-              left="25%"
-              width="80px"
-              alt="star"
-            ></Star>
-            <Star src={star} top="65%" left="27%" alt="star"></Star>
+            {starts.map((item, index) => {
+              return <Star src={star} key={index} {...item}></Star>;
+            })}
           </div>
 
           <StyledBtn size={"medium"} onClick={logIn}>
@@ -106,7 +69,9 @@ function Body() {
           <div>
             <Moon src={moon} alt="moon"></Moon>
             {starts.map((item, index) => {
-              <Star key={index} {...item}></Star>;
+              return (
+                <Star src={star} onClick={addStar} key={index} {...item}></Star>
+              );
             })}
           </div>
 
