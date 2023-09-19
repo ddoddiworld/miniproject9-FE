@@ -31,10 +31,13 @@ const ModalTitle = styled.h2`
     border-bottom: 1px solid #e4e4e4;
     font-size: 26px;
     padding-bottom: 10px;
-    margin: ${({ margin }) => margin};
     font-family: 'yg-jalnan';
     color: black;
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: baseline;
     justify-content: space-between;
 `;
 
@@ -86,7 +89,7 @@ const ModalBtn = styled.button`
 
 const TestBtn = styled.button`
     border: none;
-    color: #fff;
+    color: black;
     width: 100px;
     height: 30px;
     border-radius: 7px;
@@ -120,6 +123,14 @@ const FamilySelect = styled.select`
     margin-right: -230px;
 `;
 
+const CloseBtn = styled.button`
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    font-size: larger;
+`;
+
 export default {
     Modal,
     ModalTitle,
@@ -134,4 +145,5 @@ export default {
     ModalLink,
     TextArea,
     FamilySelect,
+    CloseBtn,
 };

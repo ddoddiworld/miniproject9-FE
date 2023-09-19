@@ -14,18 +14,17 @@ function SignUpModal({ close }) {
         TestBtn,
         ModalP,
         ModalLink,
+        CloseBtn,
     } = styles;
 
     const [closeModal] = useState(true);
-    // <>
-    //     {closeModal && ()}
-    //     </>
+
     return (
         <>
             {closeModal && (
                 <Modal>
                     <ModalTitle>
-                        회원가입<button onClick={close}>x</button>
+                        회원가입<CloseBtn onClick={close}>x</CloseBtn>
                     </ModalTitle>
                     <ModalContents>
                         <InputFild>

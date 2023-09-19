@@ -13,6 +13,7 @@ function LoginModal({ close }) {
         ModalBtn,
         ModalP,
         ModalLink,
+        CloseBtn,
     } = styles;
 
     const [closeModal] = useState(true);
@@ -22,7 +23,7 @@ function LoginModal({ close }) {
             {closeModal && (
                 <Modal>
                     <ModalTitle>
-                        로그인<button onClick={close}>x</button>
+                        로그인<CloseBtn onClick={close}>x</CloseBtn>
                     </ModalTitle>
                     <ModalContents>
                         <InputFild>
