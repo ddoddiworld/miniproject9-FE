@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles';
 import { useState } from 'react';
 
-function LoginModal({ close }) {
+function LoginModal({ close, signOpen }) {
     const {
         Modal,
         ModalTitle,
@@ -39,7 +39,15 @@ function LoginModal({ close }) {
                         <ModalBtn bgcolor="#ffa500">로그인</ModalBtn>
                         <ModalP>
                             {/* 회원가입버튼을 누르면 로그인 모달창이 닫히고, 회원가입 모달창이 나오도록? */}
-                            회원이 아니신가요?<ModalLink>회원가입</ModalLink>
+                            회원이 아니신가요?
+                            <ModalLink
+                                onClick={() => {
+                                    close();
+                                    signOpen();
+                                }}
+                            >
+                                회원가입
+                            </ModalLink>
                         </ModalP>
                     </ModalContents>
                 </Modal>

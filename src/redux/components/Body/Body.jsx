@@ -4,6 +4,7 @@ import moon from '../images/moon2.png';
 import star from '../images/star2.png';
 import User from '../User/User';
 import LoginModal from '../Modal/LoginModal';
+import SignUpModal from '../Modal/SignUpModal';
 import { useState } from 'react';
 
 function Body() {
@@ -33,18 +34,30 @@ function Body() {
         { top: '65%', left: '27%', width: '120px' },
     ];
 
-    // 로그인
-    const [openModal, setOpenModal] = useState(false);
+    // overlay 적용여부
     const [showOverlay, setshowOverlay] = useState(false);
 
-    const logIn = () => {
+    // 로그인
+    const [openLoginModal, setopenLoginModal] = useState(false);
+
+    const loginOpen = () => {
         setshowOverlay(true);
-        setOpenModal(true);
+        setopenLoginModal(true);
     };
 
+    // 회원가입
+    const [openSignModal, setopenSignModal] = useState(false);
+
+    const signOpen = () => {
+        setshowOverlay(true);
+        setopenSignModal(true);
+    };
+
+    // 닫기
     const close = () => {
         setshowOverlay(false);
-        setOpenModal(false);
+        setopenLoginModal(false);
+        setopenSignModal(false);
     };
 
     // 덕담 나눠주기
@@ -68,9 +81,20 @@ function Body() {
                     </SubTitle>
                     {showOverlay && <SideOverlay onClick={close} />}{' '}
                     {/* 오버레이 표시 */}
-                    {openModal && (
+                    {openLoginModal && (
                         <>
-                            <LoginModal close={close}></LoginModal>
+                            <LoginModal
+                                close={close}
+                                signOpen={signOpen}
+                            ></LoginModal>
+                        </>
+                    )}
+                    {openSignModal && (
+                        <>
+                            <SignUpModal
+                                close={close}
+                                loginOpen={loginOpen}
+                            ></SignUpModal>
                         </>
                     )}
                     <div>
@@ -81,7 +105,7 @@ function Body() {
                             );
                         })}
                     </div>
-                    <StyledBtn size={'medium'} onClick={logIn}>
+                    <StyledBtn size={'medium'} onClick={loginOpen}>
                         로그인
                     </StyledBtn>
                     <User></User>

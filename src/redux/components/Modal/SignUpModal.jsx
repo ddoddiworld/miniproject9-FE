@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles';
 import { useState } from 'react';
 
-function SignUpModal({ close }) {
+function SignUpModal({ close, loginOpen }) {
     const {
         Modal,
         ModalTitle,
@@ -45,7 +45,15 @@ function SignUpModal({ close }) {
                         </InputFild>
                         <ModalBtn>회원가입 완료</ModalBtn>
                         <ModalP>
-                            회원이신가요?<ModalLink>로그인</ModalLink>
+                            회원이신가요?
+                            <ModalLink
+                                onClick={() => {
+                                    close();
+                                    loginOpen();
+                                }}
+                            >
+                                로그인
+                            </ModalLink>
                         </ModalP>
                     </ModalContents>
                 </Modal>
