@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { getToken } from "../../../token/token";
+// import { getToken } from "../../../token/token";
 
 function SignUpModal({ close, loginOpen }) {
   const {
@@ -43,10 +43,9 @@ function SignUpModal({ close, loginOpen }) {
 
       if (response.status === 201) {
         alert(
-          `ID : '${email}'\nPassword: '${password}'\n으로 회원가입 되었습니다! 🎉`
+          `ID : '${email}'\nPassword: '${password}'\n으로 회원가입 되었습니다! 🎉\n로그인 부탁드립니다!`
         );
-        console.log(response);
-        // navigate("/");
+        close();
       }
     } catch (error) {
       console.error("회원 가입 실패! :", error);

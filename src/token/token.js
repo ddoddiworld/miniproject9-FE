@@ -12,21 +12,22 @@ export const getCookie = () => {
 };
 
 export const removeCookie = () => {
-  return cookies.remove("token");
+  cookies.remove("token");
+  // localStorage.removeItem("token");
 };
 
 // 로컬스토리지 저장 -> 구 방법
-export const setToken = (token) => {
-  localStorage.setItem("token", token);
-};
+// export const setToken = (token) => {
+//   localStorage.setItem("token", token);
+// };
 
-export const getToken = () => {
-  return localStorage.getItem("token");
-};
+// export const getToken = () => {
+//   return localStorage.getItem("token");
+// };
 
-export const removeToken = () => {
-  return localStorage.removeItem("token");
-};
+// export const removeToken = () => {
+//   return localStorage.removeItem("token");
+// };
 
 // // 토큰 설정 및 만료 시간 설정
 // export const setToken = (token, expirationTimeInSeconds) => {
