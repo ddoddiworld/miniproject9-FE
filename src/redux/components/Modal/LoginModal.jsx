@@ -23,7 +23,6 @@ function LoginModal({ close, signOpen }) {
   const navigate = useNavigate();
 
   const [closeModal] = useState(true);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -56,7 +55,8 @@ function LoginModal({ close, signOpen }) {
           const token = response.headers.authorization;
           setCookie("token", token, 1 / 24); // 정수는 0일  1/24 는 1시간
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
-          close();
+          window.location.reload(); // 임시로 페이지 리로드로 로그인화면으로 변경
+          // close();
         }
       }
     } catch (error) {

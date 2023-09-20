@@ -13,7 +13,11 @@ export const getCookie = () => {
 
 export const removeCookie = () => {
   cookies.remove("token");
-  // localStorage.removeItem("token");
+};
+
+export const isUserLoggedIn = () => {
+  const token = getCookie();
+  return !!token; // 토큰이 존재하면 true, 그렇지 않으면 false를 반환
 };
 
 // 로컬스토리지 저장 -> 구 방법
