@@ -10,6 +10,7 @@ const SideOverlay = styled.div`
   width: 1200px;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
 `;
 
 const Main = styled.div`
