@@ -22,7 +22,7 @@ function SignUpModal({ close, loginOpen }) {
   const [closeModal] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [confrimpw, setConfrimpw] = useState("");
 
   // 토큰 get
   useEffect(() => {
@@ -35,17 +35,17 @@ function SignUpModal({ close, loginOpen }) {
   // 회원 가입 (추가)
   const joinHandler = async () => {
     // id, pw 입력 확인
-    if (!email || !password || !confirm) {
-      alert("모든 빈칸을 반드시 입력 해 주세요!");
-      return;
-    }
+    // if (!email || !password || !confrimpw) {
+    //   alert("모든 빈칸을 반드시 입력 해 주세요!");
+    //   return;
+    // }
 
     // axios
     try {
-      const response = await axios.post("http://3.38.191.164//api/sign-up", {
+      const response = await axios.post("http://3.38.191.164/register", {
         email,
         password,
-        confirm,
+        confrimpw,
       });
 
       if (response.status === 201) {
@@ -70,33 +70,16 @@ function SignUpModal({ close, loginOpen }) {
           <ModalContents>
             <InputFild>
               <ModalLabel margin="0 15px 0 0"> 이메일 </ModalLabel>
-              <Input
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
+              <Input />
               <TestBtn center={false}> 중복검사 </TestBtn>
             </InputFild>
             <InputFild>
               <ModalLabel> 비밀번호 </ModalLabel>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+              <Input type="password" />
             </InputFild>
             <InputFild>
               <ModalLabel> 비밀번호 확인</ModalLabel>
-              <Input
-                type="password"
-                value={confirm}
-                onChange={(e) => {
-                  setConfirm(e.target.value);
-                }}
-              />
+              <Input type="password" />
             </InputFild>
             <ModalBtn onClick={joinHandler}>회원가입 완료</ModalBtn>
             <ModalP>
