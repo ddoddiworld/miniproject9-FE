@@ -30,10 +30,9 @@ function LoginModal({ close, signOpen }) {
     }
   }, []);
 
-  // db의 id, pw 찾기
   const user = async () => {
     try {
-      const response = await axios.get("http://3.38.191.164/api/sign-up", {
+      const response = await axios.get("http://3.38.191.164/api/signin", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -51,16 +50,19 @@ function LoginModal({ close, signOpen }) {
         alert("이메일과 비밀번호를 입력해 주세요!");
         return;
       } else {
-        const response = await axios.post("http://3.38.191.164/api/sign-up", {
-          email,
-          password,
-        });
+        const response = await axios.post(
+          "http://54.180.87.103:4000/api/signin",
+          {
+            email,
+            password,
+          }
+        );
         console.log(response.status);
 
         // 로그인 성공
-        if (response.status === 201) {
+        if (response.status === 200) {
           setToken(response.data.token);
-          user(); // db에 있는 ID, PW 확인하는 fn 실행
+          user();
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
           // navigate("/home");
         }

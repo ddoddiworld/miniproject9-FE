@@ -42,11 +42,14 @@ function SignUpModal({ close, loginOpen }) {
 
     // axios
     try {
-      const response = await axios.post("http://3.38.191.164//api/sign-up", {
-        email,
-        password,
-        confirm,
-      });
+      const response = await axios.post(
+        "http://54.180.87.103:4000/api/signup",
+        {
+          email,
+          password,
+          confirm,
+        }
+      );
 
       if (response.status === 201) {
         alert(
