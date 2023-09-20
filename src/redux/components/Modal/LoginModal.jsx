@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { getToken, setToken } from "../../../token/token";
+import { getCookie, setCookie } from "../../../token/token";
 
 function LoginModal({ close, signOpen }) {
   const {
@@ -24,7 +24,7 @@ function LoginModal({ close, signOpen }) {
 
   // 토큰 get
   useEffect(() => {
-    const token = getToken();
+    const token = getCookie();
     if (token) {
       alert(token);
     }
@@ -61,7 +61,7 @@ function LoginModal({ close, signOpen }) {
 
         // 로그인 성공
         if (response.status === 200) {
-          setToken(response.data.token);
+          setCookie(response.data.token);
           user();
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
           // navigate("/home");

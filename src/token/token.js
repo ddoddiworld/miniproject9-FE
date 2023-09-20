@@ -3,16 +3,16 @@ import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
 
-export const setCookie = (name, value, option) => {
-  return cookies.set(name, value, { ...option });
+export const setCookie = (token) => {
+  return cookies.set("token", token);
 };
 
-export const getCookie = (name) => {
-  return cookies.get(name);
+export const getCookie = () => {
+  return cookies.get("token");
 };
 
-export const removeCookie = (name, option) => {
-  return cookies.remove(name, { ...option });
+export const removeCookie = () => {
+  return cookies.remove("token");
 };
 
 // 로컬스토리지 저장 -> 구 방법

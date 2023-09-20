@@ -24,23 +24,13 @@ function SignUpModal({ close, loginOpen }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
-  // 토큰 get
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      alert(token);
-    }
-  }, []);
-
   // 회원 가입 (추가)
   const joinHandler = async () => {
-    // id, pw 입력 확인
     if (!email || !password || !confirm) {
       alert("모든 빈칸을 반드시 입력 해 주세요!");
       return;
     }
 
-    // axios
     try {
       const response = await axios.post(
         "http://54.180.87.103:4000/api/signup",
