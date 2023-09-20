@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { removeCookie } from "../../../token/token";
+import { useNavigate } from "react-router-dom";
 
 function User() {
   const {
@@ -19,6 +20,8 @@ function User() {
     NewNickBtn,
     LogoutBtn,
   } = styles;
+
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [nickName, setNickName] = useState("덕담진스");
@@ -58,7 +61,7 @@ function User() {
   const logoutHandler = () => {
     removeCookie();
     alert("[로그아웃]\n안녕히 가세요!");
-    window.location.reload();
+    navigate("/");
   };
 
   return (

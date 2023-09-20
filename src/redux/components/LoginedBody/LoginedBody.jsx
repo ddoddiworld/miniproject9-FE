@@ -2,11 +2,14 @@ import React from "react";
 import styles from "./styles";
 import moon from "../images/moon2.png";
 import star from "../images/star2.png";
-import LoginModal from "../Modal/LoginModal";
-import SignUpModal from "../Modal/SignUpModal";
+import User from "../User/User";
+import WriteModal from "../Modal/WriteModal";
+import ViewModal from "../Modal/ViewModal";
 import { useState } from "react";
+import { isUserLoggedIn } from "../../../token/token";
+import { useNavigate } from "react-router-dom";
 
-function Body() {
+function LoginedBody() {
   /***********************
     공통
   ***********************/
@@ -37,30 +40,27 @@ function Body() {
     { top: "65%", left: "27%", width: "120px" },
   ];
 
+  const navigate = useNavigate();
+
   // 오버레이
   const [showOverlay, setshowOverlay] = useState(false);
 
   // 모달창 닫기
   const close = () => {
     setshowOverlay(false);
-    setopenLoginModal(false);
-    setopenSignModal(false);
+    setOpenDuckdomModal(false);
   };
 
-  // 로그인
-  const [openLoginModal, setopenLoginModal] = useState(false);
-
-  const loginOpen = () => {
+  // 덕담 나눠주기 (작성)
+  const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
+  const giveDuckdom = () => {
     setshowOverlay(true);
-    setopenLoginModal(true);
+    setOpenDuckdomModal(true);
   };
 
-  // 회원가입
-  const [openSignModal, setopenSignModal] = useState(false);
-
-  const signOpen = () => {
-    setshowOverlay(true);
-    setopenSignModal(true);
+  // 별 추가 (보기)
+  const addStar = () => {
+    alert("별을 누르면 받은 글을 볼 수 있어요.");
   };
 
   return (
@@ -69,30 +69,31 @@ function Body() {
         <MainWarp>
           <Title>토끼의 발자국</Title>
           <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
-          {showOverlay && <SideOverlay onClick={close} />}
-          {openLoginModal && (
-            <>
-              <LoginModal close={close} signOpen={signOpen}></LoginModal>
-            </>
-          )}
-          {openSignModal && (
-            <>
-              <SignUpModal close={close} loginOpen={loginOpen}></SignUpModal>
-            </>
-          )}
+
           <div>
             <Moon src={moon} alt="moon"></Moon>
             {starts.map((item, index) => {
-              return <Star src={star} key={index} {...item}></Star>;
+              return (
+                <Star src={star} onClick={addStar} key={index} {...item}></Star>
+              );
             })}
           </div>
-          <StyledBtn size={"medium"} onClick={loginOpen}>
-            로그인
+          {showOverlay && <SideOverlay onClick={close} />}
+          {openDuckdomModal && (
+            <>
+              <WriteModal close={close} signOpen={giveDuckdom}></WriteModal>
+            </>
+          )}
+          <StyledBtn size={"medium"} onClick={giveDuckdom}>
+            덕담 나눠주기
           </StyledBtn>
+          <StyledBtn size={"small"}>랜덤</StyledBtn>
+
+          <User></User>
         </MainWarp>
       </Main>
     </>
   );
 }
 
-export default Body;
+export default LoginedBody;

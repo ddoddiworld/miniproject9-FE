@@ -30,7 +30,7 @@ function LoginModal({ close, signOpen }) {
   useEffect(() => {
     const token = getCookie();
     if (token) {
-      navigate("/");
+      navigate(`/${email}`);
     }
   }, []);
 
@@ -55,8 +55,7 @@ function LoginModal({ close, signOpen }) {
           const token = response.headers.authorization;
           setCookie("token", token, 1 / 24); // 정수는 0일  1/24 는 1시간
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
-          window.location.reload(); // 임시로 페이지 리로드로 로그인화면으로 변경
-          // close();
+          navigate(`/${email}`);
         }
       }
     } catch (error) {
