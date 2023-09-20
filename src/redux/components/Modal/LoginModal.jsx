@@ -57,7 +57,8 @@ function LoginModal({ close, signOpen }) {
 
         // 로그인 성공
         if (response.status === 200) {
-          const { token, refreshToken } = response.headers.authorization;
+          const token = response.headers.authorization;
+          // const { token, refreshToken } = response.headers.authorization;
           // setCookie('token', token, 10 / (60 * 60 * 24)); // 리프레시 토큰 테스트용
           // setRefreshToken(refreshToken); // 리프레시 토큰 저장 (로컬 스토리지)
 
