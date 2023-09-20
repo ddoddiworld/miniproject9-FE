@@ -5,6 +5,7 @@ import devJeans from "../images/devJeans.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { removeCookie } from "../../../token/token";
 
 function User() {
   const {
@@ -54,8 +55,10 @@ function User() {
     }
   };
 
-  const Logout = () => {
-    alert("로그아웃 되면서 토큰을 삭제할 예정입니다!");
+  const logoutHandler = () => {
+    removeCookie();
+    alert("[로그아웃]\n안녕히 가세요!");
+    window.location.reload();
   };
 
   return (
@@ -105,7 +108,7 @@ function User() {
           )}
         </NickName>
 
-        <LogoutBtn onClick={Logout}>로그아웃</LogoutBtn>
+        <LogoutBtn onClick={logoutHandler}>로그아웃</LogoutBtn>
       </Side>
     </div>
   );
