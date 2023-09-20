@@ -1,3 +1,21 @@
+// 쿠키 저장 -> 이걸로 저장 예정!
+import { Cookies } from "react-cookie";
+
+const cookies = new Cookies();
+
+export const setCookie = (name, value, option) => {
+  return cookies.set(name, value, { ...option });
+};
+
+export const getCookie = (name) => {
+  return cookies.get(name);
+};
+
+export const removeCookie = (name, option) => {
+  return cookies.remove(name, { ...option });
+};
+
+// 로컬스토리지 저장 -> 구 방법
 export const setToken = (token) => {
   localStorage.setItem("token", token);
 };
