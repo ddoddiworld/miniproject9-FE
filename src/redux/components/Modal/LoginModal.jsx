@@ -33,7 +33,7 @@ function LoginModal({ close, signOpen }) {
   // db의 id, pw 찾기
   const user = async () => {
     try {
-      const response = await axios.get("http://3.38.191.164/user", {
+      const response = await axios.get("http://3.38.191.164/api/sign-up", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -51,7 +51,7 @@ function LoginModal({ close, signOpen }) {
         alert("이메일과 비밀번호를 입력해 주세요!");
         return;
       } else {
-        const response = await axios.post("http://3.38.191.164/login", {
+        const response = await axios.post("http://3.38.191.164/api/sign-up", {
           email,
           password,
         });
