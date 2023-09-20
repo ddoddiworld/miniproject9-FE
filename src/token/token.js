@@ -1,6 +1,7 @@
 // 쿠키 저장 -> 이걸로 저장 예정!
 import { Cookies } from "react-cookie";
 
+// 일반 토큰 관련
 const cookies = new Cookies();
 
 export const setCookie = (token) => {
@@ -18,6 +19,21 @@ export const removeCookie = () => {
 export const isUserLoggedIn = () => {
   const token = getCookie();
   return !!token; // 토큰이 존재하면 true, 그렇지 않으면 false를 반환
+};
+
+// 리프레시 토큰 관련
+// 리프레시 토큰 저장 및 가져오기 함수
+export const setRefreshToken = (refreshToken) => {
+  localStorage.setItem("refreshToken", refreshToken);
+};
+
+export const getRefreshToken = () => {
+  return localStorage.getItem("refreshToken");
+};
+
+// 리프레시 토큰 삭제 함수
+export const removeRefreshToken = () => {
+  localStorage.removeItem("refreshToken");
 };
 
 // 로컬스토리지 저장 -> 구 방법

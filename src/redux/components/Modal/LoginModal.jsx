@@ -3,7 +3,12 @@ import styles from "./styles";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getCookie, setCookie } from "../../../token/token";
+import {
+  getCookie,
+  setCookie,
+  setRefreshToken,
+  refreshToken,
+} from "../../../token/token";
 
 function LoginModal({ close, signOpen }) {
   const {
@@ -52,7 +57,10 @@ function LoginModal({ close, signOpen }) {
 
         // 로그인 성공
         if (response.status === 200) {
-          const token = response.headers.authorization;
+          const { token, refreshToken } = response.headers.authorization;
+          // setCookie('token', token, 10 / (60 * 60 * 24)); // 리프레시 토큰 테스트용
+          // setRefreshToken(refreshToken); // 리프레시 토큰 저장 (로컬 스토리지)
+
           setCookie("token", token, 1 / 24); // 정수는 0일  1/24 는 1시간
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
           navigate(`/${email}`);
