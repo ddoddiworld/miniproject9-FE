@@ -5,6 +5,8 @@ import star from "../images/star2.png";
 import User from "../User/User";
 import LoginModal from "../Modal/LoginModal";
 import SignUpModal from "../Modal/SignUpModal";
+import WriteModal from "../Modal/WriteModal";
+import ViewModal from "../Modal/ViewModal";
 import { useState } from "react";
 
 function Body() {
@@ -46,6 +48,7 @@ function Body() {
     setshowOverlay(false);
     setopenLoginModal(false);
     setopenSignModal(false);
+    setOpenDuckdomModal(false);
   };
 
   /***********************
@@ -70,12 +73,14 @@ function Body() {
   /***********************
     로그인 후
   ***********************/
-  // 덕담 나눠주기
+  // 덕담 나눠주기 (작성)
+  const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
   const giveDuckdom = () => {
-    alert("현재 준비 중이에요! 😉");
+    setshowOverlay(true);
+    setOpenDuckdomModal(true);
   };
 
-  // 별 추가
+  // 별 추가 (보기)
   const addStar = () => {
     alert("별을 누르면 받은 글을 볼 수 있어요.");
   };
@@ -87,7 +92,7 @@ function Body() {
         <MainWarp>
           <Title>토끼의 발자국</Title>
           <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
-          {showOverlay && <SideOverlay onClick={close} />} {/* 오버레이 표시 */}
+          {showOverlay && <SideOverlay onClick={close} />}
           {openLoginModal && (
             <>
               <LoginModal close={close} signOpen={signOpen}></LoginModal>
@@ -125,7 +130,12 @@ function Body() {
               );
             })}
           </div>
-
+          {showOverlay && <SideOverlay onClick={close} />}
+          {openDuckdomModal && (
+            <>
+              <WriteModal close={close} signOpen={giveDuckdom}></WriteModal>
+            </>
+          )}
           <StyledBtn size={"medium"} onClick={giveDuckdom}>
             덕담 나눠주기
           </StyledBtn>
