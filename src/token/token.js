@@ -1,19 +1,33 @@
 // 쿠키 저장 -> 이걸로 저장 예정!
-import { Cookies } from "react-cookie";
+import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
 export const setCookie = (token) => {
-  return cookies.set("token", token);
+    return cookies.set('token', token);
 };
 
 export const getCookie = () => {
-  return cookies.get("token");
+    return cookies.get('token');
 };
 
 export const removeCookie = () => {
-  cookies.remove("token");
-  // localStorage.removeItem("token");
+    cookies.remove('token');
+    // localStorage.removeItem("token");
+};
+
+// 리프레시 토큰 저장 및 가져오기 함수
+export const setRefreshToken = (refreshToken) => {
+    localStorage.setItem('refreshToken', refreshToken);
+};
+
+export const getRefreshToken = () => {
+    return localStorage.getItem('refreshToken');
+};
+
+// 리프레시 토큰 삭제 함수
+export const removeRefreshToken = () => {
+    localStorage.removeItem('refreshToken');
 };
 
 // 로컬스토리지 저장 -> 구 방법
