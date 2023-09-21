@@ -53,18 +53,19 @@ function LoginModal({ close, signOpen }) {
             password,
           }
         );
-        console.log(response.status);
 
         // 로그인 성공
         if (response.status === 200) {
-          const token = response.headers.authorization;
+          // token
+          const token = response.headers["Authorization"];
+          setCookie("token", token);
+          alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
+          navigate(`/${email}`);
+
+          // refresh token
           // const { token, refreshToken } = response.headers.authorization;
           // setCookie('token', token, 10 / (60 * 60 * 24)); // 리프레시 토큰 테스트용
           // setRefreshToken(refreshToken); // 리프레시 토큰 저장 (로컬 스토리지)
-
-          setCookie("token", token, 1 / 24); // 정수는 0일  1/24 는 1시간
-          alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
-          navigate(`/${email}`);
         }
       }
     } catch (error) {
