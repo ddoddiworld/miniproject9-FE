@@ -144,6 +144,17 @@ const FamilySelect = styled.select`
   }
 `;
 
+const UserRel = styled.span`
+  font-family: "yg-jalnan";
+  color: #333;
+  margin-right: 10px;
+  font-size: 15px;
+  background-color: #ffa500;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 30px;
+`;
+
 const UserName = styled.p`
   font-family: "yg-jalnan";
   color: #555;
@@ -178,4 +189,5 @@ export default {
   FamilySelect,
   UserName,
   CloseBtn,
+  UserRel,
 };

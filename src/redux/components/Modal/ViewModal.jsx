@@ -1,30 +1,43 @@
-import React from 'react';
-import styles from './styles';
-import { useState } from 'react';
+import React from "react";
+import styles from "./styles";
+import { useState } from "react";
 
-function ViewModal({ close }) {
-    const { Modal, ModalTitle, ModalBox, TextArea, ModalBtn, CloseBtn } =
-        styles;
-    const [closeModal] = useState(true);
+function ViewModal({ close, relationship, content }) {
+  const {
+    Modal,
+    ModalTitle,
+    ModalBox,
+    TextArea,
+    ModalBtn,
+    CloseBtn,
+    Who,
+    UserName,
+    UserRel,
+  } = styles;
+  const [closeModal] = useState(true);
 
-    return (
-        <>
-            {closeModal && (
-                <Modal>
-                    <ModalTitle margin="0 110px">
-                        덕담이 도착했어요!<CloseBtn onClick={close}>x</CloseBtn>
-                    </ModalTitle>
-                    <ModalBox column={false}>
-                        <span>친구</span> 이름
-                    </ModalBox>
-                    <ModalBox>
-                        <TextArea placeholder="내용을 입력해 주세요."></TextArea>
-                        <ModalBtn> 달에게 보내기 </ModalBtn>
-                    </ModalBox>
-                </Modal>
-            )}
-        </>
-    );
+  return (
+    <>
+      {closeModal && (
+        <Modal>
+          <ModalTitle>
+            덕담이 도착했어요!<CloseBtn onClick={close}>x</CloseBtn>
+          </ModalTitle>
+          <ModalBox justify={"start"}>
+            <Who>From.</Who>
+            <UserRel value={relationship}>댕댕이 / 냥냥이</UserRel>
+            <UserName>덕담진스</UserName>
+          </ModalBox>
+          <ModalBox direction={"column"}>
+            <TextArea value={content} readOnly>
+              덕담 내용입니다.
+            </TextArea>
+            <ModalBtn onClick={close}>닫기</ModalBtn>
+          </ModalBox>
+        </Modal>
+      )}
+    </>
+  );
 }
 
 export default ViewModal;

@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./styles";
 import { useState } from "react";
-function WriteModal({ close }) {
+import axios from "axios";
+import { getCookie } from "../../../token/token";
+function WriteModal({ close, onWriteComplete }) {
   const {
     Modal,
     ModalTitle,
@@ -18,8 +20,41 @@ function WriteModal({ close }) {
   // 덕담 저장하기
   const [relationship, setRelationship] = useState("");
   const [content, setContent] = useState("");
-  const sendDuckdom = () => {
-    alert(`[TEST]\n우리의 관계: ${relationship}\n덕담 내용: ${content}`);
+
+  const sendDuckdom = async () => {
+    if (!content) {
+      alert("덕담을 입력해 주세요 🐰");
+      return;
+    } else {
+      try {
+        // 토큰 가져오기
+        const token = getCookie();
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        // 요청 보내기
+        const response = await axios.post(
+          "http://54.180.87.103:4000/api/posts",
+          {
+            relationship,
+            content,
+          },
+          config
+        );
+        console.log(response.status);
+
+        if (response.status === 200) {
+          alert("글 보내기 성공!");
+          onWriteComplete({ relationship, content });
+        }
+      } catch (error) {
+        alert(`[글 보내기 실패]\n${error.message}`);
+        console.error("글 보내기 실패! :", error.message);
+      }
+    }
 
     setRelationship("");
     setContent("");
@@ -34,7 +69,7 @@ function WriteModal({ close }) {
             덕담을 적어주세요!<CloseBtn onClick={close}>x</CloseBtn>
           </ModalTitle>
           <ModalBox justify={"start"}>
-            <Who>From. </Who>
+            <Who>나는 </Who>
             <FamilySelect
               value={relationship}
               onChange={(e) => {

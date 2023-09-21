@@ -43,24 +43,27 @@ function LoginedBody() {
   const navigate = useNavigate();
 
   // 오버레이
-  const [showOverlay, setshowOverlay] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // 모달창 닫기
   const close = () => {
-    setshowOverlay(false);
+    setShowOverlay(false);
     setOpenDuckdomModal(false);
+    setOpenViewModal(false);
   };
 
-  // 덕담 나눠주기 (작성)
+  // 덕담 작성
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
   const giveDuckdom = () => {
-    setshowOverlay(true);
+    setShowOverlay(true);
     setOpenDuckdomModal(true);
   };
 
-  // 별 추가 (보기)
-  const addStar = () => {
-    alert("별을 누르면 받은 글을 볼 수 있어요.");
+  // 덕담 보기
+  const [openViewModal, setOpenViewModal] = useState(false);
+  const showDuckdom = () => {
+    setShowOverlay(true);
+    setOpenViewModal(true);
   };
 
   return (
@@ -72,12 +75,26 @@ function LoginedBody() {
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
+            {/* 덕담 보기 */}
+            {showOverlay && <SideOverlay onClick={close} />}
+            {openViewModal && (
+              <>
+                <ViewModal close={close} signOpen={showDuckdom}></ViewModal>
+              </>
+            )}
             {starts.map((item, index) => {
               return (
-                <Star src={star} onClick={addStar} key={index} {...item}></Star>
+                <Star
+                  src={star}
+                  onClick={showDuckdom}
+                  key={index}
+                  {...item}
+                ></Star>
               );
             })}
           </div>
+
+          {/* 덕담 주기 */}
           {showOverlay && <SideOverlay onClick={close} />}
           {openDuckdomModal && (
             <>
@@ -87,6 +104,8 @@ function LoginedBody() {
           <StyledBtn size={"medium"} onClick={giveDuckdom}>
             덕담 나눠주기
           </StyledBtn>
+
+          {/* 랜덤방문 */}
           <StyledBtn size={"small"}>랜덤</StyledBtn>
 
           <User></User>
