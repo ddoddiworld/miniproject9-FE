@@ -31,6 +31,12 @@ function LoginModal({ close, signOpen }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // 이메일, 비밀번호 체크
+  const emailRegex = new RegExp(
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  );
+  const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/i);
+
   // 토큰 get
   useEffect(() => {
     const token = getCookie();
@@ -41,6 +47,22 @@ function LoginModal({ close, signOpen }) {
 
   // 로그인 버튼 fn
   const loginHandler = async () => {
+    if (!email || !password) {
+      alert("이메일과 비밀번호를 모두 입력해 주세요!");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      alert("이메일 형식으로 입력해 주세요!");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      alert(
+        "비밀번호는 최소 하나의 알파벳과 하나의 숫자를 포함하고 4자 이상이어야 합니다."
+      );
+      return;
+    }
     try {
       if (!email || !password) {
         alert("이메일과 비밀번호를 입력해 주세요!");
@@ -53,6 +75,7 @@ function LoginModal({ close, signOpen }) {
             password,
           }
         );
+        console.log(response.status);
 
         // 로그인 성공
         if (response.status === 200) {
@@ -91,6 +114,7 @@ function LoginModal({ close, signOpen }) {
               <ModalLabel> 비밀번호 </ModalLabel>
               <ModalP center={false}></ModalP>
               <Input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
