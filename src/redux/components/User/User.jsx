@@ -59,7 +59,7 @@ function User() {
   };
 
   const logoutHandler = () => {
-    removeCookie();
+    removeCookie("token");
     alert("[로그아웃]\n안녕히 가세요!");
     navigate("/");
   };

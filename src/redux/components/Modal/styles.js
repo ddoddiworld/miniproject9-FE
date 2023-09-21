@@ -35,10 +35,7 @@ const ModalBox = styled.div`
   padding: 20px 10px 10px;
   display: flex;
   align-items: center;
-  /* flex-direction: ${({ column = "column" }) =>
-    column ? "column" : "row"}; */
   flex-direction: ${(props) => props.direction || "row"};
-  /* justify-content: space-around; */
   justify-content: ${(props) => props.justify || "space-around"};
 `;
 
