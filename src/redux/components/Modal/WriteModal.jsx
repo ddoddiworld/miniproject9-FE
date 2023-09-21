@@ -6,6 +6,7 @@ function WriteModal({ close }) {
     Modal,
     ModalTitle,
     ModalBox,
+    Who,
     TextArea,
     ModalBtn,
     FamilySelect,
@@ -27,13 +28,13 @@ function WriteModal({ close }) {
 
   return (
     <>
-      {/* {showOverlay && <SideOverlay onClick={close} />} */}
       {closeModal && (
         <Modal>
           <ModalTitle>
             덕담을 적어주세요!<CloseBtn onClick={close}>x</CloseBtn>
           </ModalTitle>
-          <ModalBox>
+          <ModalBox justify={"start"}>
+            <Who>From. </Who>
             <FamilySelect
               value={relationship}
               onChange={(e) => {

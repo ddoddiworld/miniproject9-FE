@@ -7,7 +7,7 @@ const Modal = styled.div`
   transform: translate(-50%);
   background-color: #fff;
   border-radius: 20px;
-  padding: 30px;
+  padding: 20px 30px 20px;
   width: 450px;
   display: ${({ display = "display" }) => (display ? "block" : "none")};
   z-index: 90;
@@ -38,7 +38,8 @@ const ModalBox = styled.div`
   /* flex-direction: ${({ column = "column" }) =>
     column ? "column" : "row"}; */
   flex-direction: ${(props) => props.direction || "row"};
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: ${(props) => props.justify || "space-around"};
 `;
 
 const InputFild = styled.div`
@@ -107,18 +108,46 @@ const ModalLink = styled.span`
   }
 `;
 
+const Who = styled.p`
+  font-family: "yg-jalnan";
+  color: #ffa500;
+  margin-right: 10px;
+  font-size: 20px;
+`;
+
 const TextArea = styled.textarea`
   width: 100%;
   height: 200px;
   resize: none;
+  padding: 5px;
 `;
 
 const FamilySelect = styled.select`
-  /* margin-right: -230px; */
+  font-family: "yg-jalnan";
+  color: #ffa500;
+  margin-right: 10px;
+  border-radius: 20px;
+  padding: 3px;
+  width: 140px;
+  text-align: center;
+  border: 2px solid #ffa500;
+  background-color: transparent;
+  &:active {
+    border: 2px solid #ffa500;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  option {
+    background-color: white;
+    color: #ffa500;
+  }
 `;
 
 const UserName = styled.p`
-  color: red;
+  font-family: "yg-jalnan";
+  color: #555;
+  font-size: 20px;
 `;
 
 const CloseBtn = styled.button`
@@ -137,6 +166,7 @@ export default {
   ModalTitle,
   ModalContents,
   ModalBox,
+  Who,
   InputFild,
   Input,
   ModalLabel,
