@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Modal = styled.div`
   position: absolute;
@@ -32,11 +32,12 @@ const ModalContents = styled.div`
 `;
 
 const ModalBox = styled.div`
-  padding: 20px 10px;
-
+  padding: 20px 10px 10px;
   display: flex;
   align-items: center;
-  flex-direction: ${({ column = "column" }) => (column ? "column" : "row")};
+  /* flex-direction: ${({ column = "column" }) =>
+    column ? "column" : "row"}; */
+  flex-direction: ${(props) => props.direction || "row"};
   justify-content: space-around;
 `;
 
@@ -71,6 +72,7 @@ const ModalBtn = styled.button`
   height: 40px;
   border-radius: 10px;
   margin-top: 20px;
+  font-weight: 600;
   &:hover {
     cursor: pointer;
   }
@@ -106,21 +108,25 @@ const ModalLink = styled.span`
 `;
 
 const TextArea = styled.textarea`
-  width: 95%;
+  width: 100%;
   height: 200px;
   resize: none;
 `;
 
 const FamilySelect = styled.select`
-  margin-right: -230px;
+  /* margin-right: -230px; */
+`;
+
+const UserName = styled.p`
+  color: red;
 `;
 
 const CloseBtn = styled.button`
   border: none;
   border-radius: 4px;
-  background-color: white;
+  background-color: transparent;
   color: black;
-  font-size: larger;
+  font-size: 30px;
   &:hover {
     cursor: pointer;
   }
@@ -140,5 +146,6 @@ export default {
   ModalLink,
   TextArea,
   FamilySelect,
+  UserName,
   CloseBtn,
 };
