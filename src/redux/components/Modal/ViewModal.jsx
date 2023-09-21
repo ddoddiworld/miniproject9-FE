@@ -26,7 +26,7 @@ function ViewModal({ close, relationship, content }) {
           <ModalBox justify={"start"}>
             <Who>From.</Who>
             <UserRel value={relationship}>댕댕이 / 냥냥이</UserRel>
-            <UserName>덕담진스</UserName>
+            <UserName>추석진스</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
             <TextArea value={content} readOnly>

@@ -70,8 +70,8 @@ function LoginedBody() {
     <>
       <Main>
         <MainWarp>
-          <Title>토끼의 발자국</Title>
-          <SubTitle>고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?</SubTitle>
+          <Title>덕담진스의 달</Title>
+          <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
             <Moon src={moon} alt="moon"></Moon>
