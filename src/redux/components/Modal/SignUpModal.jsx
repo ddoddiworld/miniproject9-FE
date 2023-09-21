@@ -24,11 +24,44 @@ function SignUpModal({ close, loginOpen }) {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
 
+    const [isIdAvailable, setIsIdAvailable] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
+
     // 이메일, 비밀번호 체크
     const emailRegex = new RegExp(
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     );
     const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/i);
+
+    // 아이디 중복 검사 함수
+    const checkId = async () => {
+        if (!email) {
+            setErrorMessage('이메일을 입력해 주세요.');
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                'http://54.180.87.103:4000/api/signup',
+                {
+                    email,
+                }
+            );
+
+            if (response.status === 200) {
+                setIsIdAvailable(true);
+                alert('사용 가능한 아이디입니다.');
+            } else if (response.status === 409) {
+                setIsIdAvailable(false);
+                alert(
+                    '이미 사용 중인 아이디입니다. 다른 아이디를 선택해 주세요.'
+                );
+            }
+        } catch (error) {
+            console.error('아이디 중복 검사 실패:', error);
+            alert('아이디 중복 검사에 실패했습니다.');
+        }
+    };
 
     // 회원 가입 (추가)
     const joinHandler = async () => {
@@ -97,7 +130,10 @@ function SignUpModal({ close, loginOpen }) {
                                     setEmail(e.target.value);
                                 }}
                             />
-                            <TestBtn center={false}> 중복검사 </TestBtn>
+                            <TestBtn center={false} onClick={checkId}>
+                                {' '}
+                                중복검사{' '}
+                            </TestBtn>
                         </InputFild>
                         <InputFild>
                             <ModalLabel> 비밀번호 </ModalLabel>
@@ -137,5 +173,4 @@ function SignUpModal({ close, loginOpen }) {
         </>
     );
 }
-
 export default SignUpModal;
