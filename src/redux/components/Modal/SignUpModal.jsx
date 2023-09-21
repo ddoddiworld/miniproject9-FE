@@ -33,6 +33,14 @@ function SignUpModal({ close, loginOpen }) {
     );
     const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/i);
 
+    // 엔터키로 회원가입 버튼 누르기
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            // 엔터 키가 눌렸을 때 로그인 처리 함수 호출
+            joinHandler();
+        }
+    };
+
     // 아이디 중복 검사 함수
     const checkId = async () => {
         if (!email) {
@@ -51,11 +59,9 @@ function SignUpModal({ close, loginOpen }) {
             if (response.status === 200) {
                 setIsIdAvailable(true);
                 alert('사용 가능한 아이디입니다.');
-            } else if (response.status === 409) {
+            } else if (response.status === 412) {
                 setIsIdAvailable(false);
-                alert(
-                    '이미 사용 중인 아이디입니다. 다른 아이디를 선택해 주세요.'
-                );
+                alert('중복 된 이메일입니다.');
             }
         } catch (error) {
             console.error('아이디 중복 검사 실패:', error);
@@ -153,6 +159,7 @@ function SignUpModal({ close, loginOpen }) {
                                 onChange={(e) => {
                                     setConfirm(e.target.value);
                                 }}
+                                onKeyPress={handleKeyPress}
                             />
                         </InputFild>
                         <ModalBtn onClick={joinHandler}>회원가입 완료</ModalBtn>
