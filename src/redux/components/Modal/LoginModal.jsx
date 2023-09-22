@@ -8,6 +8,7 @@ import {
     setCookie,
     removeCookie,
     setRefreshToken,
+    getRefreshToken,
 } from '../../../token/token';
 
 function LoginModal({ close, signOpen, userId }) {
@@ -78,7 +79,7 @@ function LoginModal({ close, signOpen, userId }) {
             }
 
             if (!email || !password) {
-                alert('이메일과 비밀번호를 입력해 주세요!!!');
+                alert('이메일과 비밀번호를 입력해 주세요!');
                 return;
             } else {
                 const response = await axios.post(
@@ -125,6 +126,13 @@ function LoginModal({ close, signOpen, userId }) {
             console.error('서버 응답 오류:', error);
         }
     };
+    useEffect(() => {
+        // 토큰 확인 (테스트용)
+        const accessToken = getCookie();
+        const refreshToken = getRefreshToken();
+        console.log('Access Token:', accessToken);
+        console.log('Refresh Token:', refreshToken);
+    }, []);
 
     return (
         <>
