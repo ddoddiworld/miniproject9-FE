@@ -23,6 +23,7 @@ function SignUpModal({ close, loginOpen }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
+    const [nickName, setNickName] = useState('');
 
     const [isIdAvailable, setIsIdAvailable] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -126,7 +127,18 @@ function SignUpModal({ close, loginOpen }) {
                     </ModalTitle>
                     <ModalContents>
                         <InputFild>
-                            <ModalLabel margin="0 15px 0 0">
+                            <ModalLabel> 닉네임 </ModalLabel>
+                            <Input
+                                type="text"
+                                maxLength={5}
+                                value={nickName}
+                                onChange={(e) => {
+                                    setNickName(e.target.value);
+                                }}
+                            />
+                        </InputFild>
+                        <InputFild>
+                            <ModalLabel margin="0 7px 0 9px">
                                 {' '}
                                 이메일{' '}
                             </ModalLabel>
@@ -135,6 +147,7 @@ function SignUpModal({ close, loginOpen }) {
                                 onChange={(e) => {
                                     setEmail(e.target.value);
                                 }}
+                                margin={'20px 0px'}
                             />
                             <TestBtn center={false} onClick={checkId}>
                                 {' '}
