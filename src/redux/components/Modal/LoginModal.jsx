@@ -78,7 +78,7 @@ function LoginModal({ close, signOpen }) {
             }
 
             if (!email || !password) {
-                alert('이메일과 비밀번호를 입력해 주세요!');
+                alert('이메일과 비밀번호를 입력해 주세요!!!');
                 return;
             } else {
                 const response = await axios.post(
