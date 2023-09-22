@@ -23,7 +23,7 @@ function SignUpModal({ close, loginOpen }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
-    const [nickName, setNickName] = useState('');
+    const [nickname, setnickname] = useState('');
     const [isNickNameValid, setIsNickNameValid] = useState(true);
 
     const [isIdAvailable, setIsIdAvailable] = useState(true);
@@ -75,9 +75,9 @@ function SignUpModal({ close, loginOpen }) {
 
     // 닉네임 검사
     const handleNickNameChange = (e) => {
-        const newNickName = e.target.value;
+        const newnickname = e.target.value;
         // 닉네임에 공백이 있는지 검사
-        const hasWhiteSpace = /\s/g.test(newNickName);
+        const hasWhiteSpace = /\s/g.test(newnickname);
 
         if (hasWhiteSpace) {
             setIsNickNameValid(false); // 공백이 있으면 유효하지 않음
@@ -86,7 +86,7 @@ function SignUpModal({ close, loginOpen }) {
             setIsNickNameValid(true); // 공백이 없으면 유효함
         }
 
-        setNickName(newNickName); // 상태 업데이트
+        setnickname(newnickname); // 상태 업데이트
     };
 
     // 회원 가입 (추가)
@@ -121,6 +121,7 @@ function SignUpModal({ close, loginOpen }) {
                 'http://54.180.87.103:4000/api/signup',
                 {
                     email,
+                    nickname,
                     password,
                     confirm,
                 }
@@ -150,7 +151,7 @@ function SignUpModal({ close, loginOpen }) {
                             <Input
                                 type="text"
                                 maxLength={5}
-                                value={nickName}
+                                value={nickname}
                                 onChange={handleNickNameChange}
                             />
                         </InputFild>
