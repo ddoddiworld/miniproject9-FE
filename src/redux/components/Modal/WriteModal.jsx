@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./styles";
 import { useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../token/token";
+import { userId } from "./LoginModal";
+
 function WriteModal({ close, onWriteComplete }) {
   const {
     Modal,
@@ -15,45 +18,61 @@ function WriteModal({ close, onWriteComplete }) {
     UserName,
     CloseBtn,
   } = styles;
+
   const [closeModal] = useState(true);
 
   // 덕담 저장하기
+  const { userId } = useParams(); // 현재 사용자의 id
+  const { receiverId } = useParams(); // 현재 페이지의 id -> 이걸 어떻게 가져올지?
   const [relationship, setRelationship] = useState("");
   const [content, setContent] = useState("");
 
   const sendDuckdom = async () => {
+    if (userId === receiverId) {
+      alert("스스로에게 덕담을 작성할 수 없습니다!");
+      return;
+    }
+
     if (!content) {
       alert("덕담을 입력해 주세요 🐰");
       return;
-    } else {
-      try {
-        // 토큰 가져오기
-        const token = getCookie();
-        const config = {
+    }
+
+    try {
+      // 토큰 가져오기
+      const accessToken = getCookie("accessToken");
+      console.log(`글쓰기를 위한 토큰 확인: ${accessToken}`);
+
+      // 요청 보내기
+      const response = await axios.post(
+        "http://54.180.87.103:4000/api/posts/receiverId",
+        {
+          userId,
+          receiverId,
+          relationship,
+          content,
+        },
+        // {
+        //   headers: {
+        //     Accesstoken: `${accessToken}`,
+        //   },
+        // }
+        {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `${accessToken}`,
           },
-        };
-
-        // 요청 보내기
-        const response = await axios.post(
-          "http://54.180.87.103:4000/api/posts",
-          {
-            relationship,
-            content,
-          },
-          config
-        );
-        console.log(response.status);
-
-        if (response.status === 200) {
-          alert("글 보내기 성공!");
-          onWriteComplete({ relationship, content });
         }
-      } catch (error) {
-        alert(`[글 보내기 실패]\n${error.message}`);
-        console.error("글 보내기 실패! :", error.message);
+      );
+      console.log("서버 응답:", response.data);
+      console.log(response.status);
+
+      if (response.status === 200) {
+        alert("글 보내기 성공!");
+        onWriteComplete({ userId, receiverId, relationship, content });
       }
+    } catch (error) {
+      alert(`[글 보내기 실패]\n${error.message}`);
+      console.error("글 보내기 실패! :", error.message);
     }
 
     setRelationship("");

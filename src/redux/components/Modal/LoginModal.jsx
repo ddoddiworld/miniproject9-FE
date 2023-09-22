@@ -12,7 +12,7 @@ import {
 } from "../../../token/token";
 import refreshAccessToken from "../../../token/RefreshTokenHandler";
 
-function LoginModal({ close, signOpen }) {
+function LoginModal({ close, signOpen, userId }) {
   const {
     Modal,
     ModalTitle,
@@ -97,6 +97,7 @@ function LoginModal({ close, signOpen }) {
 
         // 로그인 성공
         if (response.status === 200) {
+          const userId = response.data.data;
           // access token
           const accesstokenHeader = response.headers["accesstoken"];
           const accesstoken = accesstokenHeader ? accesstokenHeader : null;
@@ -104,7 +105,7 @@ function LoginModal({ close, signOpen }) {
             setCookie("accessToken", accesstoken);
           }
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
-          navigate(`/${response.data.data}`);
+          navigate(`/${userId}`);
           console.log("받은 토큰:", accesstoken);
 
           // refresh token
