@@ -101,7 +101,7 @@ function LoginModal({ close, signOpen }) {
           const accesstokenHeader = response.headers["accesstoken"];
           const accesstoken = accesstokenHeader ? accesstokenHeader : null;
           if (accesstoken) {
-            setCookie("token", accesstoken);
+            setCookie("accessToken", accesstoken);
           }
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
           navigate(`/${response.data.data}`);
