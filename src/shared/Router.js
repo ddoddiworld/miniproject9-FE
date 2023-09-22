@@ -11,7 +11,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/:userId" element={<MyHome></MyHome>}></Route>
+        <Route path="/:receiverId" element={<MyHome></MyHome>}></Route>
         <Route path="/modal" element={<LoginModal></LoginModal>}></Route>
         <Route
           path="/SignUpModal"
