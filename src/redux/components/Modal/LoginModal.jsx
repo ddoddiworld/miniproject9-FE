@@ -10,6 +10,7 @@ import {
     setRefreshToken,
     refreshToken,
 } from '../../../token/token';
+import refreshAccessToken from '../../../token/RefreshTokenHandler';
 
 function LoginModal({ close, signOpen }) {
     const {
@@ -96,21 +97,26 @@ function LoginModal({ close, signOpen }) {
                 // 로그인 성공
                 if (response.status === 200) {
                     // token
-                    const authorizationHeader =
-                        response.headers['authorization'];
-                    const token = authorizationHeader
-                        ? authorizationHeader.split('Bearer ')[1] // 'Bearer '를 제거하고 토큰만 추출
+                    const accesstokenHeader = response.headers['accesstoken'];
+                    const accesstoken = accesstokenHeader
+                        ? accesstokenHeader
                         : null;
-                    if (token) {
-                        setCookie('token', token);
+                    if (accesstoken) {
+                        setCookie('token', accesstoken, 10);
                     }
                     alert('[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄');
                     navigate(`/${email}`);
-                    console.log('받은 토큰:', token);
+                    console.log('받은 토큰:', accesstoken);
                     // refresh token
-                    // const { token, refreshToken } = response.headers.authorization;
-                    // setCookie('token', token, 10 / (60 * 60 * 24)); // 리프레시 토큰 테스트용
-                    // setRefreshToken(refreshToken); // 리프레시 토큰 저장 (로컬 스토리지)
+
+                    const refreshTokenHeader = response.headers['refreshToken'];
+                    const refreshToken = refreshTokenHeader
+                        ? refreshTokenHeader
+                        : null;
+                    if (refreshToken) {
+                        setRefreshToken('refreshToken', refreshToken);
+                        console.log('받은 토큰:', refreshToken);
+                    }
                 }
             }
         } catch (error) {
