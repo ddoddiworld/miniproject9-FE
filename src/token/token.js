@@ -5,7 +5,7 @@ const cookies = new Cookies();
 // 토큰을 쿠키에 저장하는 함수
 export const setCookie = (name, value) => {
     // 이름과 값을 인자로 받도록 수정
-    cookies.set(name, value, { path: '/', maxAge: 60 * 60 * 24 * 7 }); // 7일 동안 유효한 쿠키로 저장
+    cookies.set(name, value, { path: '/', maxAge: 10 }); // 7일 동안 유효한 쿠키로 저장 : maxAge: 60 * 60 * 24 * 7
 };
 
 // 쿠키에서 토큰을 추출하는 함수
