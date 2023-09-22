@@ -24,6 +24,7 @@ function SignUpModal({ close, loginOpen }) {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [nickName, setNickName] = useState('');
+    const [isNickNameValid, setIsNickNameValid] = useState(true);
 
     const [isIdAvailable, setIsIdAvailable] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -33,6 +34,8 @@ function SignUpModal({ close, loginOpen }) {
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     );
     const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/i);
+
+    const Regex = new RegExp(/\W|\s/g);
 
     // 엔터키로 회원가입 버튼 누르기
     const handleKeyPress = (event) => {
@@ -68,6 +71,22 @@ function SignUpModal({ close, loginOpen }) {
             console.error('아이디 중복 검사 실패:', error);
             alert('아이디 중복 검사에 실패했습니다.');
         }
+    };
+
+    // 닉네임 검사
+    const handleNickNameChange = (e) => {
+        const newNickName = e.target.value;
+        // 닉네임에 공백이 있는지 검사
+        const hasWhiteSpace = /\s/g.test(newNickName);
+
+        if (hasWhiteSpace) {
+            setIsNickNameValid(false); // 공백이 있으면 유효하지 않음
+            alert('공백은 입력하지말아주세요!');
+        } else {
+            setIsNickNameValid(true); // 공백이 없으면 유효함
+        }
+
+        setNickName(newNickName); // 상태 업데이트
     };
 
     // 회원 가입 (추가)
@@ -132,9 +151,7 @@ function SignUpModal({ close, loginOpen }) {
                                 type="text"
                                 maxLength={5}
                                 value={nickName}
-                                onChange={(e) => {
-                                    setNickName(e.target.value);
-                                }}
+                                onChange={handleNickNameChange}
                             />
                         </InputFild>
                         <InputFild>
