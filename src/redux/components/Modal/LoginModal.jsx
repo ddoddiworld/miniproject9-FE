@@ -126,13 +126,6 @@ function LoginModal({ close, signOpen, userId }) {
             console.error('서버 응답 오류:', error);
         }
     };
-    useEffect(() => {
-        // 토큰 확인 (테스트용)
-        const accessToken = getCookie();
-        const refreshToken = getRefreshToken();
-        console.log('Access Token:', accessToken);
-        console.log('Refresh Token:', refreshToken);
-    }, []);
 
     return (
         <>
