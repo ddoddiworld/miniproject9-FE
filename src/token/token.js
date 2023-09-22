@@ -1,46 +1,46 @@
-import { Cookies } from 'react-cookie';
+import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 
 //? Access Token
 // 토큰을 쿠키에 저장하는 함수
 export const setCookie = (name, value) => {
-    // 이름과 값을 인자로 받도록 수정
-    cookies.set(name, value, { path: '/', maxAge: 60 * 60 * 24 * 7 }); // 7일 동안 유효한 쿠키로 저장 :
+  // 이름과 값을 인자로 받도록 수정
+  cookies.set(name, value, { path: "/", maxAge: 60 * 60 * 24 * 7 }); // 7일 동안 유효한 쿠키로 저장 : maxAge: 60 * 60 * 24 * 7
 };
 
 // 쿠키에서 토큰을 추출하는 함수
 export const getCookie = (name) => {
-    // 이름을 인자로 받도록 수정
-    return cookies.get(name); // 이름에 해당하는 쿠키를 가져오도록 수정
+  // 이름을 인자로 받도록 수정
+  return cookies.get(name); // 이름에 해당하는 쿠키를 가져오도록 수정
 };
 
 // 쿠키에서 토큰을 제거하는 함수
 export const removeCookie = (name) => {
-    // 이름을 인자로 받도록 수정
-    cookies.remove(name); // 이름에 해당하는 쿠키를 제거하도록 수정
+  // 이름을 인자로 받도록 수정
+  cookies.remove(name); // 이름에 해당하는 쿠키를 제거하도록 수정
 };
 
 // 사용자가 로그인되어 있는지 확인하는 함수
 export const isUserLoggedIn = () => {
-    const token = getCookie();
-    return !!token; // 토큰이 존재하면 true, 그렇지 않으면 false를 반환
+  const token = getCookie();
+  return !!token; // 토큰이 존재하면 true, 그렇지 않으면 false를 반환
 };
 
 //? Refresh Token
 // 리프레시 토큰 저장 함수
 export const setRefreshToken = (name, value) => {
-    // name과 value를 받도록 수정
-    cookies.set(name, value, { path: '/', maxAge: 60 * 60 * 24 * 7 });
+  // name과 value를 받도록 수정
+  cookies.set(name, value, { path: "/", maxAge: 60 * 60 * 24 * 7 });
 };
 
 // 리프레시 토큰 가져오기 함수
 export const getRefreshToken = () => {
-    return cookies.get('refreshToken');
+  return cookies.get("refreshToken");
 };
 
 // 리프레시 토큰 삭제 함수
 export const removeRefreshToken = () => {
-    cookies.remove('refreshToken', { path: '/' });
+  cookies.remove("refreshToken", { path: "/" });
 };
 
 // 이 전 코드
