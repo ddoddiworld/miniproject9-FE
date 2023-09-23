@@ -186,6 +186,7 @@ function SignUpModal({ close, loginOpen }) {
                                 value={nickname}
                                 onChange={handleNickNameChange}
                                 margin={'20px 0px'}
+                                placeholder="5글자까지 가능해요!"
                             />
                             <TestBtn center={false} onClick={checkNickName}>
                                 {' '}
@@ -217,6 +218,7 @@ function SignUpModal({ close, loginOpen }) {
                                 onChange={(e) => {
                                     setPassword(e.target.value);
                                 }}
+                                placeholder="알파벳 문자 + 숫자 (4자 이상)"
                             />
                         </InputFild>
                         <InputFild>
@@ -228,6 +230,7 @@ function SignUpModal({ close, loginOpen }) {
                                     setConfirm(e.target.value);
                                 }}
                                 onKeyPress={handleKeyPress}
+                                placeholder="예시 : test0123"
                             />
                         </InputFild>
                         <ModalBtn onClick={joinHandler}>회원가입 완료</ModalBtn>
