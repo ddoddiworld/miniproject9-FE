@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./styles";
 import { useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../token/token";
-import { userId } from "./LoginModal";
+import jwt_decode from "jwt-decode";
 
 function WriteModal({ close, onWriteComplete }) {
   const {
@@ -22,16 +21,15 @@ function WriteModal({ close, onWriteComplete }) {
   const [closeModal] = useState(true);
 
   // 덕담 저장하기
-  const { userId } = useParams(); // 현재 사용자의 id
-  const { receiverId } = useParams(); // 현재 페이지의 id -> 이걸 어떻게 가져올지?
-  const [relationship, setRelationship] = useState("");
+  const { receiverId } = useParams();
+  const [relationship, setRelationship] = useState("할아버지 / 할머니");
   const [content, setContent] = useState("");
 
   const sendDuckdom = async () => {
-    if (userId === receiverId) {
-      alert("스스로에게 덕담을 작성할 수 없습니다!");
-      return;
-    }
+    // 토큰 가져오기 (access, refresh)
+    const refreshToken = getCookie("refreshToken"); // 0923 accessToken으로는 인증 불가로 refreshToken으로 인증
+    const accessToken = getCookie("accessToken");
+    const userId = jwt_decode(accessToken).userId; // 로그인한 사용자 ID
 
     if (!content) {
       alert("덕담을 입력해 주세요 🐰");
@@ -39,27 +37,18 @@ function WriteModal({ close, onWriteComplete }) {
     }
 
     try {
-      // 토큰 가져오기
-      const accessToken = getCookie("accessToken");
-      console.log(`글쓰기를 위한 토큰 확인: ${accessToken}`);
-
       // 요청 보내기
       const response = await axios.post(
-        "http://54.180.87.103:4000/api/posts/receiverId",
+        `http://54.180.87.103:4000/api/posts/${receiverId}`,
         {
           userId,
           receiverId,
           relationship,
           content,
         },
-        // {
-        //   headers: {
-        //     Accesstoken: `${accessToken}`,
-        //   },
-        // }
         {
           headers: {
-            Authorization: `${accessToken}`,
+            Authorization: `${refreshToken}`,
           },
         }
       );
@@ -67,8 +56,14 @@ function WriteModal({ close, onWriteComplete }) {
       console.log(response.status);
 
       if (response.status === 200) {
-        alert("글 보내기 성공!");
+        alert("덕담 보내기 완료! 🐰");
         onWriteComplete({ userId, receiverId, relationship, content });
+      }
+
+      // 412 : 스스로에게 덕담 작성하면 발생하는 오류인데 아래 코드가 안먹힘..! 추후 확인 예정
+      if (response.status === 412) {
+        alert("스스로에게 덕담을 작성할 수 없습니다!");
+        return;
       }
     } catch (error) {
       alert(`[글 보내기 실패]\n${error.message}`);

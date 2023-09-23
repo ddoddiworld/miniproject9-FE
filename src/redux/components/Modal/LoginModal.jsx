@@ -12,7 +12,7 @@ import {
   getRefreshToken,
 } from "../../../token/token";
 
-function LoginModal({ close, signOpen, userId }) {
+function LoginModal({ close, signOpen }) {
   const {
     Modal,
     ModalTitle,
@@ -100,14 +100,14 @@ function LoginModal({ close, signOpen, userId }) {
           // access token
           const accesstokenHeader = response.headers["accesstoken"];
           const accesstoken = accesstokenHeader ? accesstokenHeader : null;
-          const userId = jwt_decode(accesstoken);
-          console.log(`현재 로그인한 유저 아이디 : ${userId.userId}`);
+          const loggedInUserId = jwt_decode(accesstoken).userId; // 로그인한 사용자 ID
+          console.log(`현재 로그인한 유저 아이디 : ${loggedInUserId}`);
 
           if (accesstoken) {
             setCookie("accessToken", accesstoken);
           }
           alert("[로그인 성공]\n안녕하세요! 좋은 하루 보내세요😄");
-          navigate(`/${userId.userId}`); // 처음에는 개인 덕담 페이지로
+          navigate(`/${loggedInUserId}`); // 처음에는 개인 덕담 페이지로
           console.log("받은 토큰:", accesstoken);
 
           // refresh token
