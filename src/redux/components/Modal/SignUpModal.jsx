@@ -69,7 +69,7 @@ function SignUpModal({ close, loginOpen }) {
             }
         } catch (error) {
             console.error('아이디 중복 검사 실패:', error);
-            alert('아이디 중복 검사에 실패했습니다.');
+            alert('중복 된 이메일입니다.');
         }
     };
 
