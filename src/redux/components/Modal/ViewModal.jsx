@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles";
 import { useState } from "react";
 
-function ViewModal({ close, relationship, content }) {
+function ViewModal({ close, duckdomData }) {
   const {
     Modal,
     ModalTitle,
@@ -14,28 +14,33 @@ function ViewModal({ close, relationship, content }) {
     UserName,
     UserRel,
   } = styles;
-  const [closeModal] = useState(true);
+  // const [closeModal] = useState(true);
+
+  const closeModal = () => {
+    // 모달을 닫는 로직
+    close();
+  };
+
+  console.log("duckdomData가 여기 잘 들어왔나?", duckdomData);
 
   return (
     <>
-      {closeModal && (
-        <Modal>
+      {duckdomData.map((item, index) => (
+        <Modal key={item.postId}>
           <ModalTitle>
-            덕담이 도착했어요!<CloseBtn onClick={close}>x</CloseBtn>
+            덕담이 도착했어요!<CloseBtn onClick={closeModal}>x</CloseBtn>
           </ModalTitle>
           <ModalBox justify={"start"}>
             <Who>From.</Who>
-            <UserRel value={relationship}>댕댕이 / 냥냥이</UserRel>
-            <UserName>추석진스</UserName>
+            <UserRel value={item.relationship}>관계 데이터 없음!</UserRel>
+            <UserName>{item.postId}</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
-            <TextArea value={content} readOnly>
-              덕담 내용입니다.
-            </TextArea>
-            <ModalBtn onClick={close}>닫기</ModalBtn>
+            <TextArea readOnly value={item.content}></TextArea>
+            <ModalBtn onClick={closeModal}>닫기</ModalBtn>
           </ModalBox>
         </Modal>
-      )}
+      ))}
     </>
   );
 }

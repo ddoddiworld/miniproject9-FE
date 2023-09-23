@@ -24,6 +24,7 @@ function WriteModal({ close, onWriteComplete }) {
   const { receiverId } = useParams();
   const [relationship, setRelationship] = useState("할아버지 / 할머니");
   const [content, setContent] = useState("");
+  const [data, setData] = useState(null); // 응답 데이터 저장
 
   const sendDuckdom = async () => {
     // 토큰 가져오기 (access, refresh)
@@ -57,7 +58,7 @@ function WriteModal({ close, onWriteComplete }) {
 
       if (response.status === 200) {
         alert("덕담 보내기 완료! 🐰");
-        onWriteComplete({ userId, receiverId, relationship, content });
+        // onWriteComplete({ userId, receiverId, relationship, content });
       }
 
       // 412 : 스스로에게 덕담 작성하면 발생하는 오류인데 아래 코드가 안먹힘..! 추후 확인 예정

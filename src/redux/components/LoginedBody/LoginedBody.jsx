@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles";
 import moon from "../images/moon2.png";
 import star from "../images/star2.png";
@@ -8,6 +8,10 @@ import ViewModal from "../Modal/ViewModal";
 import { useState } from "react";
 import { isUserLoggedIn } from "../../../token/token";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { useParams } from "react-router-dom";
+import { getCookie } from "../../../token/token";
 
 function LoginedBody() {
   /***********************
@@ -40,8 +44,6 @@ function LoginedBody() {
     { top: "65%", left: "27%", width: "120px" },
   ];
 
-  const navigate = useNavigate();
-
   // 오버레이
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -64,13 +66,56 @@ function LoginedBody() {
   const showDuckdom = () => {
     setShowOverlay(true);
     setOpenViewModal(true);
+    receiveDuckdam();
   };
+
+  // 덕담 가져오기
+  const { receiverId } = useParams();
+  const [duckdomData, setDuckdamData] = useState([]);
+  console.log("받은 덕담들:", duckdomData.length);
+
+  // 토큰 가져오기 (access, refresh)
+  const refreshToken = getCookie("refreshToken"); // 0923 accessToken으로는 인증 불가로 refreshToken으로 인증
+  const accessToken = getCookie("accessToken");
+  const userId = jwt_decode(accessToken).userId; // 로그인한 사용자 ID
+  console.log(`현재 당신의 userId는 ${userId} 입니다.`);
+
+  const receiveDuckdam = async () => {
+    // try {
+    // 요청 받기
+    const response = await axios.get(
+      `http://54.180.87.103:4000/api/receive/${receiverId}`,
+      {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      }
+    );
+    console.log("서버 응답:", response.data.data);
+    console.log(response.status);
+
+    if (response.status === 200) {
+      setDuckdamData(response.data.data);
+    }
+    // } catch (error) {
+    //   alert(`[글 가져오기 실패]\n${error.message}`);
+    //   console.error("글 가져오기 실패! :", error.message);
+    // }
+  };
+
+  useEffect(() => {
+    receiveDuckdam();
+  }, []);
+
+  // 본인 덕담 페이지에서는 덕담 쓰기 버튼 숨기게
+  const currentURL = window.location.pathname;
+  const isUserPage = currentURL === `/${userId}`;
 
   return (
     <>
       <Main>
         <MainWarp>
-          <Title>덕담진스의 달</Title>
+          <Title>{userId}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
@@ -79,15 +124,22 @@ function LoginedBody() {
             {showOverlay && <SideOverlay onClick={close} />}
             {openViewModal && (
               <>
-                <ViewModal close={close} signOpen={showDuckdom}></ViewModal>
+                <ViewModal
+                  close={close}
+                  signOpen={showDuckdom}
+                  duckdomData={duckdomData}
+                ></ViewModal>
               </>
             )}
-            {starts.map((item, index) => {
+            {duckdomData.slice(0, 10).map((item, index) => {
+              const starStyles = starts[index]; // 별 갯수만큼 화면에 나타내기
+              console.log("item", item);
               return (
                 <Star
                   src={star}
-                  onClick={showDuckdom}
-                  key={index}
+                  onClick={() => showDuckdom(item)}
+                  key={item.postId}
+                  style={starStyles}
                   {...item}
                 ></Star>
               );
@@ -101,9 +153,11 @@ function LoginedBody() {
               <WriteModal close={close} signOpen={giveDuckdom}></WriteModal>
             </>
           )}
-          <StyledBtn size={"medium"} onClick={giveDuckdom}>
-            덕담 나눠주기
-          </StyledBtn>
+          {!isUserPage && (
+            <StyledBtn size={"medium"} onClick={giveDuckdom}>
+              덕담 나눠주기
+            </StyledBtn>
+          )}
 
           {/* 랜덤방문 */}
           <StyledBtn size={"small"}>랜덤</StyledBtn>
