@@ -62,14 +62,13 @@ function SignUpModal({ close, loginOpen }) {
 
             if (response.status === 200) {
                 setIsIdAvailable(true);
-                alert('사용 가능한 아이디입니다.');
+                alert('사용 가능한 이메일입니다.');
             } else if (response.status === 412) {
-                setIsIdAvailable(false);
                 alert('중복 된 이메일입니다.');
             }
         } catch (error) {
-            console.error('아이디 중복 검사 실패:', error);
-            alert('아이디 중복 검사에 실패했습니다.');
+            console.error('이메일 중복 검사 실패:', error);
+            alert('이메일 중복 검사 실패');
         }
     };
 
@@ -89,13 +88,36 @@ function SignUpModal({ close, loginOpen }) {
         setnickname(newnickname); // 상태 업데이트
     };
 
-    // 회원 가입 (추가)
-    const joinHandler = async () => {
-        if (!email || !password || !confirm) {
-            alert('모든 빈칸을 반드시 입력 해 주세요!');
+    // 닉네임 중복 검사 함수
+    const checkNickName = async () => {
+        if (!nickname) {
+            alert('닉네임을 입력해 주세요.');
             return;
         }
-        if (!email || !password || !confirm) {
+
+        try {
+            const response = await axios.post(
+                'http://54.180.87.103:4000/api/signup', // 서버에서 닉네임 중복을 확인하는 API 엔드포인트
+                {
+                    nickname,
+                }
+            );
+
+            if (response.status === 200) {
+                alert('사용 가능한 닉네임입니다.');
+            } else {
+                alert('이미 사용 중인 닉네임입니다.');
+            }
+            console.log(response.status, response.data);
+        } catch (error) {
+            console.error('닉네임 중복 검사 실패:', error);
+            alert('닉네임 중복 검사에 실패했습니다.');
+        }
+    };
+
+    // 회원 가입 (추가)
+    const joinHandler = async () => {
+        if (!email || !password || !confirm || !nickname) {
             alert('모든 빈칸을 반드시 입력 해 주세요!');
             return;
         }
@@ -116,6 +138,7 @@ function SignUpModal({ close, loginOpen }) {
             alert('비밀번호와 비밀번호 확인이 일치하지 않습니다!');
             return;
         }
+
         try {
             const response = await axios.post(
                 'http://54.180.87.103:4000/api/signup',
@@ -193,7 +216,14 @@ function SignUpModal({ close, loginOpen }) {
                                 onKeyPress={handleKeyPress}
                             />
                         </InputFild>
-                        <ModalBtn onClick={joinHandler}>회원가입 완료</ModalBtn>
+                        <ModalBtn
+                            onClick={() => {
+                                joinHandler();
+                                checkNickName();
+                            }}
+                        >
+                            회원가입 완료
+                        </ModalBtn>
                         <ModalP>
                             회원이신가요?
                             <ModalLink
