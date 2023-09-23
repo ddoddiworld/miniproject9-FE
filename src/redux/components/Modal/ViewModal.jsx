@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./styles";
 import { useState } from "react";
+import star from "../images/star2.png";
+import { Star } from "../LoginedBody/styles";
 
-function ViewModal({ close, duckdomData }) {
+function ViewModal({ duckdomData, starStyles }) {
   const {
     Modal,
     ModalTitle,
@@ -14,33 +16,31 @@ function ViewModal({ close, duckdomData }) {
     UserName,
     UserRel,
   } = styles;
-  // const [closeModal] = useState(true);
 
-  const closeModal = () => {
-    // 모달을 닫는 로직
-    close();
-  };
-
-  console.log("duckdomData가 여기 잘 들어왔나?", duckdomData);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      {duckdomData.map((item, index) => (
-        <Modal key={item.postId}>
+      <Star src={star} onClick={() => setOpen(true)} style={starStyles} />
+      {open && (
+        <Modal key={duckdomData.postId}>
           <ModalTitle>
-            덕담이 도착했어요!<CloseBtn onClick={closeModal}>x</CloseBtn>
+            덕담이 도착했어요!
+            <CloseBtn onClick={() => setOpen(false)}>x</CloseBtn>
           </ModalTitle>
           <ModalBox justify={"start"}>
             <Who>From.</Who>
-            <UserRel value={item.relationship}>관계 데이터 없음!</UserRel>
-            <UserName>{item.postId}</UserName>
+            <UserRel value={duckdomData.relationship}>
+              관계 데이터 없음!
+            </UserRel>
+            <UserName>{duckdomData.postId}</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
-            <TextArea readOnly value={item.content}></TextArea>
-            <ModalBtn onClick={closeModal}>닫기</ModalBtn>
+            <TextArea readOnly value={duckdomData.content}></TextArea>
+            <ModalBtn onClick={() => setOpen(false)}>닫기</ModalBtn>
           </ModalBox>
         </Modal>
-      ))}
+      )}
     </>
   );
 }

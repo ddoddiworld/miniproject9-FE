@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const SideOverlay = styled.div`
+export const SideOverlay = styled.div`
   content: "";
   display: inline-block;
   position: fixed;
@@ -13,21 +13,21 @@ const SideOverlay = styled.div`
   z-index: 30;
 `;
 
-const Main = styled.div`
+export const Main = styled.div`
   width: 1200px;
   height: 100%;
   margin: 0 auto;
   color: #f0f0f0;
 `;
 
-const MainWarp = styled.div`
+export const MainWarp = styled.div`
   background: linear-gradient(to bottom, #213555, #4f709c);
   position: relative;
   min-height: 100dvh;
   text-align: center;
 `;
 
-const Moon = styled.img`
+export const Moon = styled.img`
   width: 400px;
   margin: 70px 0;
   animation: opacity 3s steps(40) infinite;
@@ -44,7 +44,7 @@ const Moon = styled.img`
   }
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 70px;
   font-family: "yg-jalnan";
   padding: 60px 0 10px;
@@ -64,12 +64,12 @@ const Title = styled.h1`
   }
 `;
 
-const SubTitle = styled.p`
+export const SubTitle = styled.p`
   font-size: 18px;
   font-family: "GowunBatang-Regular";
 `;
 
-const StyledBtn = styled.button`
+export const StyledBtn = styled.button`
   font-family: "yg-jalnan";
   height: 60px;
   border-radius: 20px;
@@ -100,7 +100,7 @@ const StyledBtn = styled.button`
     `}
 `;
 
-const Star = styled.img`
+export const Star = styled.img`
   position: absolute;
   /* 별들 위치 + 크기 props 사용 */
   top: ${(props) => props.top || "auto"};
@@ -123,14 +123,3 @@ const Star = styled.img`
     filter: drop-shadow(5px 5px 20px #ffc800);
   }
 `;
-
-export default {
-  SideOverlay,
-  Main,
-  MainWarp,
-  Title,
-  SubTitle,
-  StyledBtn,
-  Moon,
-  Star,
-};
