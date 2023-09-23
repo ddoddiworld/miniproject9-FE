@@ -68,6 +68,9 @@ function SignUpModal({ close, loginOpen }) {
             }
         } catch (error) {
             console.error('이메일 중복 검사 실패:', error);
+            if (error.response) {
+                console.error('서버 응답 데이터:', error.response.data);
+            }
             alert('이메일 중복 검사 실패');
         }
     };
@@ -97,7 +100,7 @@ function SignUpModal({ close, loginOpen }) {
 
         try {
             const response = await axios.post(
-                'http://54.180.87.103:4000/api/signup', // 서버에서 닉네임 중복을 확인하는 API 엔드포인트
+                'http://54.180.87.103:4000/api/signup',
                 {
                     nickname,
                 }
@@ -111,6 +114,9 @@ function SignUpModal({ close, loginOpen }) {
             console.log(response.status, response.data);
         } catch (error) {
             console.error('닉네임 중복 검사 실패:', error);
+            if (error.response) {
+                console.error('서버 응답 데이터:', error.response.data);
+            }
             alert('닉네임 중복 검사에 실패했습니다.');
         }
     };
@@ -170,13 +176,21 @@ function SignUpModal({ close, loginOpen }) {
                     </ModalTitle>
                     <ModalContents>
                         <InputFild>
-                            <ModalLabel> 닉네임 </ModalLabel>
+                            <ModalLabel margin="0 7px 0 9px">
+                                {' '}
+                                닉네임{' '}
+                            </ModalLabel>
                             <Input
                                 type="text"
                                 maxLength={5}
                                 value={nickname}
                                 onChange={handleNickNameChange}
+                                margin={'20px 0px'}
                             />
+                            <TestBtn center={false} onClick={checkNickName}>
+                                {' '}
+                                중복검사{' '}
+                            </TestBtn>
                         </InputFild>
                         <InputFild>
                             <ModalLabel margin="0 7px 0 9px">
@@ -216,14 +230,7 @@ function SignUpModal({ close, loginOpen }) {
                                 onKeyPress={handleKeyPress}
                             />
                         </InputFild>
-                        <ModalBtn
-                            onClick={() => {
-                                joinHandler();
-                                checkNickName();
-                            }}
-                        >
-                            회원가입 완료
-                        </ModalBtn>
+                        <ModalBtn onClick={joinHandler}>회원가입 완료</ModalBtn>
                         <ModalP>
                             회원이신가요?
                             <ModalLink
