@@ -89,8 +89,6 @@ function LoginedBody() {
   // 덕담 불러오기
   useEffect(() => {
     const receiveDuckdam = async () => {
-      // try {
-      // 요청 받기
       const response = await axios.get(
         `http://54.180.87.103:4000/api/receive/${receiverId}`,
         {
@@ -103,11 +101,6 @@ function LoginedBody() {
       if (response.status === 200) {
         setDuckdamData(response.data.data);
       }
-      // console.log(response);
-      // } catch (error) {
-      //   alert(`[글 가져오기 실패]\n${error.message}`);
-      //   console.error("글 가져오기 실패! :", error.message);
-      // }
     };
     console.log(
       "userId : ",
@@ -131,22 +124,36 @@ function LoginedBody() {
 
     if (response.status === 200) {
       navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
-      setRandomNickname(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
+      setNickName(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
     } else {
       alert("[페이지 이동 오류] 페이지 이동을 할 수 없습니다!");
     }
   };
 
-  // 마이 페이지 이동하기
-  const goHome = () => {
-    navigate(`/${userId}`);
+  // 마이 페이지 이동하기 -> 한번더 mypage api 실행
+  const goHome = async () => {
+    try {
+      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        navigate(`/${userId}`);
+        setNickName(response.data.data.nickname); // 내 페이지의 닉네임 재설정
+      }
+    } catch (error) {
+      alert(`[마이 페이지 이동 오류]\n${error.message}`);
+      console.error("마이 페이지 이동 실패! :", error.message);
+    }
   };
 
   return (
     <>
       <Main>
         <MainWarp>
-          <Title>{randomNickname}의 달</Title>
+          <Title>{nickName}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
