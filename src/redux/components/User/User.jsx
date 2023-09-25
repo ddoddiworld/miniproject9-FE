@@ -60,6 +60,7 @@ function User() {
 
     const logoutHandler = () => {
         removeCookie('accessToken');
+        removeCookie('refreshToken');
         alert('[로그아웃]\n안녕히 가세요!');
         navigate('/');
     };

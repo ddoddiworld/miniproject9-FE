@@ -54,13 +54,13 @@ function SignUpModal({ close, loginOpen }) {
 
         try {
             const response = await axios.post(
-                'http://54.180.87.103:4000/api/signup',
+                'http://54.180.87.103:4000/api/email',
                 {
                     email,
                 }
             );
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 setIsIdAvailable(true);
                 alert('사용 가능한 이메일입니다.');
             } else if (response.status === 412) {
@@ -100,13 +100,13 @@ function SignUpModal({ close, loginOpen }) {
 
         try {
             const response = await axios.post(
-                'http://54.180.87.103:4000/api/signup',
+                'http://54.180.87.103:4000/api//NickName',
                 {
                     nickname,
                 }
             );
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 alert('사용 가능한 닉네임입니다.');
             } else {
                 alert('이미 사용 중인 닉네임입니다.');
