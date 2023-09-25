@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../token/token";
 import jwt_decode from "jwt-decode";
+import { useEffect } from "react";
 
 function WriteModal({ close, onWriteComplete }) {
   const {
@@ -25,6 +26,23 @@ function WriteModal({ close, onWriteComplete }) {
   const [relationship, setRelationship] = useState("할아버지 / 할머니");
   const [content, setContent] = useState("");
   const [data, setData] = useState(null); // 응답 데이터 저장
+  const [nickName, setNickName] = useState("");
+  const refreshToken = getCookie("refreshToken");
+  const accessToken = getCookie("accessToken");
+
+  // 닉네임 불러오기
+  useEffect(() => {
+    const myName = async () => {
+      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      });
+      // console.log("당신의 닉네임은? :", response.data.data.nickname);
+      setNickName(response.data.data.nickname);
+    };
+    myName();
+  }, []);
 
   const sendDuckdom = async () => {
     // 토큰 가져오기 (access, refresh)
@@ -96,7 +114,7 @@ function WriteModal({ close, onWriteComplete }) {
               <option>친구</option>
               <option>댕댕이 / 냥냥이</option>
             </FamilySelect>
-            <UserName>덕담진스</UserName>
+            <UserName>{nickName}</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
             <TextArea
