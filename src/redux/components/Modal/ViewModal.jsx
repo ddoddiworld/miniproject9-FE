@@ -18,6 +18,7 @@ function ViewModal({ duckdomData, starStyles }) {
   } = styles;
 
   const [open, setOpen] = useState(false);
+  console.log(duckdomData);
 
   return (
     <>
@@ -30,10 +31,8 @@ function ViewModal({ duckdomData, starStyles }) {
           </ModalTitle>
           <ModalBox justify={"start"}>
             <Who>From.</Who>
-            <UserRel value={duckdomData.relationship}>
-              관계 데이터 없음!
-            </UserRel>
-            <UserName>{duckdomData.postId}</UserName>
+            <UserRel>{duckdomData.relationship}</UserRel>
+            <UserName>{duckdomData.WriterId}</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
             <TextArea readOnly value={duckdomData.content}></TextArea>
