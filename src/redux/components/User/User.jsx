@@ -50,7 +50,7 @@ function User() {
     const myName = async () => {
       const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
         headers: {
-          Authorization: `${refreshToken}`,
+          Authorization: `${accessToken}`,
         },
       });
       // console.log("당신의 닉네임은? :", response.data.data.nickname);

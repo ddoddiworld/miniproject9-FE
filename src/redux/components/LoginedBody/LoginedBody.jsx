@@ -77,7 +77,7 @@ function LoginedBody() {
     const myName = async () => {
       const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
         headers: {
-          Authorization: `${refreshToken}`,
+          Authorization: `${accessToken}`,
         },
       });
       // console.log("당신의 닉네임은? :", response.data.data.nickname);
@@ -93,7 +93,7 @@ function LoginedBody() {
         `http://54.180.87.103:4000/api/receive/${receiverId}`,
         {
           headers: {
-            Authorization: `${refreshToken}`,
+            Authorization: `${accessToken}`,
           },
         }
       );
@@ -118,15 +118,45 @@ function LoginedBody() {
   const random = async () => {
     const response = await axios.get("http://54.180.87.103:4000/api/random", {
       headers: {
-        Authorization: `${refreshToken}`,
+        Authorization: `${accessToken}`,
       },
     });
 
     if (response.status === 200) {
       navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
       setNickName(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
+      randomStar(); // 랜덤 유저의 별 갯수 가져오기
     } else {
       alert("[페이지 이동 오류] 페이지 이동을 할 수 없습니다!");
+    }
+  };
+
+  // 새로고침 이벤트 발생 시 강제로 마이페이지로 이동
+  // useEffect(() => {
+  //   // receiverId가 변경될 때 실행
+  //   if (Number(userId) === Number(receiverId)) {
+  //     receiveDuckdam();
+  //   }
+
+  //   // 페이지가 처음 로딩될 때 또는 receiverId가 변경될 때 새로고침 로직
+  //   if (window.location.pathname === `/${userId}` || window.location.pathname === `/${receiverId}`) {
+  //     window.location.reload();
+  //   }
+  // }, [receiverId, userId]);
+
+  // 랜덤 페이지에 대한 별 갯수 가져오기
+  const randomStar = async () => {
+    const response = await axios.get(
+      `http://54.180.87.103:4000/api/allposts/${receiverId}`,
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      console.log(response.data.data.length);
     }
   };
 
@@ -135,7 +165,7 @@ function LoginedBody() {
     try {
       const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
         headers: {
-          Authorization: `${refreshToken}`,
+          Authorization: `${accessToken}`,
         },
       });
 
