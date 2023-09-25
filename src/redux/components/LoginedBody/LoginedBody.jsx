@@ -21,6 +21,8 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../../token/token";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 const START_STYLES = [
   { top: "auto", left: "10%", width: "100px" }, // 왼1
@@ -44,6 +46,7 @@ function LoginedBody() {
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
   const [nickName, setNickName] = useState("");
+  const [randomNickname, setRandomNickname] = useState("");
   const navigate = useNavigate();
 
   const refreshToken = getCookie("refreshToken");
@@ -118,29 +121,32 @@ function LoginedBody() {
     }
   }, []);
 
-  // 랜덤 페이지 이동하기
+  // 랜덤 페이지 이동하기 & 닉네임도 같이 바뀌게 하기
   const random = async () => {
-    try {
-      const response = await axios.get(`http://54.180.87.103:4000/api/random`, {
-        headers: {
-          Authorization: `${refreshToken}`,
-        },
-      });
+    const response = await axios.get("http://54.180.87.103:4000/api/random", {
+      headers: {
+        Authorization: `${refreshToken}`,
+      },
+    });
 
-      if (response.status === 200) {
-        navigate(`/${response.data.data.userId}`);
-      }
-    } catch (error) {
-      alert(`[페이지 이동 실패]\n${error.message}`);
-      console.log(error);
+    if (response.status === 200) {
+      navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
+      setRandomNickname(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
+    } else {
+      alert("[페이지 이동 오류] 페이지 이동을 할 수 없습니다!");
     }
+  };
+
+  // 마이 페이지 이동하기
+  const goHome = () => {
+    navigate(`/${userId}`);
   };
 
   return (
     <>
       <Main>
         <MainWarp>
-          <Title>{nickName}의 달</Title>
+          <Title>{randomNickname}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
@@ -169,14 +175,21 @@ function LoginedBody() {
             </>
           )}
           {!isUserPage && (
-            <StyledBtn size={"medium"} onClick={giveDuckdom}>
-              덕담 나눠주기
-            </StyledBtn>
+            <>
+              {/* 덕담 나눠주기 버튼 */}
+              <StyledBtn size={"medium"} onClick={giveDuckdom}>
+                덕담 나눠주기
+              </StyledBtn>
+              {/* 마이 페이지 이동 버튼 */}
+              <StyledBtn size={"home"} onClick={goHome}>
+                <FontAwesomeIcon icon={faHouse} />
+              </StyledBtn>
+            </>
           )}
 
           {/* 랜덤방문 */}
           <StyledBtn onClick={random} size={"small"}>
-            랜덤
+            랜덤 이동
           </StyledBtn>
 
           <User></User>

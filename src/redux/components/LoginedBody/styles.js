@@ -91,11 +91,22 @@ export const StyledBtn = styled.button`
   ${(props) =>
     props.size === "small" &&
     css`
-      width: 90px;
+      width: 140px;
       margin-left: 10px;
       background-color: #00b894;
       &:hover {
         box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #00b894;
+      }
+    `}
+
+    ${(props) =>
+    props.size === "home" &&
+    css`
+      width: 70px;
+      margin-left: 10px;
+      background-color: #ffb347;
+      &:hover {
+        box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px #ffb347;
       }
     `}
 `;
