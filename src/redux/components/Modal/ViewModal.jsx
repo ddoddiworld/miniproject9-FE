@@ -18,7 +18,7 @@ function ViewModal({ duckdomData, starStyles }) {
   } = styles;
 
   const [open, setOpen] = useState(false);
-  console.log(duckdomData);
+  // console.log(duckdomData);
 
   return (
     <>

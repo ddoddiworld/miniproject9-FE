@@ -16,7 +16,7 @@ import WriteModal from "../Modal/WriteModal";
 import ViewModal from "../Modal/ViewModal";
 import { useState } from "react";
 import { isUserLoggedIn } from "../../../token/token";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
@@ -43,6 +43,7 @@ function LoginedBody() {
   const [showOverlay, setShowOverlay] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
+  const navigate = useNavigate();
 
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
@@ -101,6 +102,24 @@ function LoginedBody() {
     }
   }, []);
 
+  // 랜덤 페이지 이동하기
+  const random = async () => {
+    try {
+      const response = await axios.get(`http://54.180.87.103:4000/api/random`, {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        navigate(`/${response.data.data.userId}`);
+      }
+    } catch (error) {
+      alert(`[페이지 이동 실패]\n${error.message}`);
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Main>
@@ -140,7 +159,9 @@ function LoginedBody() {
           )}
 
           {/* 랜덤방문 */}
-          <StyledBtn size={"small"}>랜덤</StyledBtn>
+          <StyledBtn onClick={random} size={"small"}>
+            랜덤
+          </StyledBtn>
 
           <User></User>
         </MainWarp>
