@@ -21,19 +21,21 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../../token/token";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 const START_STYLES = [
-  { top: "19%", right: "20%", width: "100px" },
-  { top: "30%", right: "10%", width: "60px" },
-  { top: "43%", right: "12%", width: "80px" },
-  { top: "55%", right: "25%", width: "80px" },
-  { top: "65%", right: "10%", width: "120px" },
+  { top: "auto", left: "10%", width: "100px" }, // 왼1
+  { top: "30%", right: "10%", width: "60px" }, // 오2
+  { top: "55%", left: "15%", width: "60px" }, // 왼3
+  { top: "38%", left: "25%", width: "80px" }, // 왼4
+  { top: "65%", left: "27%", width: "120px" }, // 왼5
 
-  { top: "auto", left: "10%", width: "100px" },
-  { top: "22%", left: "32%", width: "60px" },
-  { top: "55%", left: "15%", width: "60px" },
-  { top: "38%", left: "25%", width: "80px" },
-  { top: "65%", left: "27%", width: "120px" },
+  { top: "19%", right: "20%", width: "100px" }, // 오1
+  { top: "22%", left: "32%", width: "60px" }, // 왼2
+  { top: "43%", right: "12%", width: "80px" }, // 오3
+  { top: "55%", right: "25%", width: "80px" }, // 오4
+  { top: "65%", right: "10%", width: "120px" }, // 오5
 ];
 
 function LoginedBody() {
@@ -43,6 +45,8 @@ function LoginedBody() {
   const [showOverlay, setShowOverlay] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
+  const [nickName, setNickName] = useState("");
+  const [randomNickname, setRandomNickname] = useState("");
   const navigate = useNavigate();
 
   const refreshToken = getCookie("refreshToken");
@@ -68,10 +72,23 @@ function LoginedBody() {
     setOpenViewModal(true);
   };
 
+  // 닉네임 불러오기
+  useEffect(() => {
+    const myName = async () => {
+      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      });
+      // console.log("당신의 닉네임은? :", response.data.data.nickname);
+      setNickName(response.data.data.nickname);
+    };
+    myName();
+  }, []);
+
+  // 덕담 불러오기
   useEffect(() => {
     const receiveDuckdam = async () => {
-      // try {
-      // 요청 받기
       const response = await axios.get(
         `http://54.180.87.103:4000/api/receive/${receiverId}`,
         {
@@ -84,11 +101,6 @@ function LoginedBody() {
       if (response.status === 200) {
         setDuckdamData(response.data.data);
       }
-      // console.log(response);
-      // } catch (error) {
-      //   alert(`[글 가져오기 실패]\n${error.message}`);
-      //   console.error("글 가져오기 실패! :", error.message);
-      // }
     };
     console.log(
       "userId : ",
@@ -102,21 +114,38 @@ function LoginedBody() {
     }
   }, []);
 
-  // 랜덤 페이지 이동하기
+  // 랜덤 페이지 이동하기 & 닉네임도 같이 바뀌게 하기
   const random = async () => {
+    const response = await axios.get("http://54.180.87.103:4000/api/random", {
+      headers: {
+        Authorization: `${refreshToken}`,
+      },
+    });
+
+    if (response.status === 200) {
+      navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
+      setNickName(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
+    } else {
+      alert("[페이지 이동 오류] 페이지 이동을 할 수 없습니다!");
+    }
+  };
+
+  // 마이 페이지 이동하기 -> 한번더 mypage api 실행
+  const goHome = async () => {
     try {
-      const response = await axios.get(`http://54.180.87.103:4000/api/random`, {
+      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
         headers: {
           Authorization: `${refreshToken}`,
         },
       });
 
       if (response.status === 200) {
-        navigate(`/${response.data.data.userId}`);
+        navigate(`/${userId}`);
+        setNickName(response.data.data.nickname); // 내 페이지의 닉네임 재설정
       }
     } catch (error) {
-      alert(`[페이지 이동 실패]\n${error.message}`);
-      console.log(error);
+      alert(`[마이 페이지 이동 오류]\n${error.message}`);
+      console.error("마이 페이지 이동 실패! :", error.message);
     }
   };
 
@@ -124,7 +153,7 @@ function LoginedBody() {
     <>
       <Main>
         <MainWarp>
-          <Title>{receiverId}의 달</Title>
+          <Title>{nickName}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
@@ -153,14 +182,21 @@ function LoginedBody() {
             </>
           )}
           {!isUserPage && (
-            <StyledBtn size={"medium"} onClick={giveDuckdom}>
-              덕담 나눠주기
-            </StyledBtn>
+            <>
+              {/* 덕담 나눠주기 버튼 */}
+              <StyledBtn size={"medium"} onClick={giveDuckdom}>
+                덕담 나눠주기
+              </StyledBtn>
+              {/* 마이 페이지 이동 버튼 */}
+              <StyledBtn size={"home"} onClick={goHome}>
+                <FontAwesomeIcon icon={faHouse} />
+              </StyledBtn>
+            </>
           )}
 
           {/* 랜덤방문 */}
           <StyledBtn onClick={random} size={"small"}>
-            랜덤
+            랜덤 이동
           </StyledBtn>
 
           <User></User>
