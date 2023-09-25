@@ -43,6 +43,7 @@ function LoginedBody() {
   const [showOverlay, setShowOverlay] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
+  const [nickName, setNickName] = useState("");
   const navigate = useNavigate();
 
   const refreshToken = getCookie("refreshToken");
@@ -68,6 +69,21 @@ function LoginedBody() {
     setOpenViewModal(true);
   };
 
+  // 닉네임 불러오기
+  useEffect(() => {
+    const myName = async () => {
+      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
+        headers: {
+          Authorization: `${refreshToken}`,
+        },
+      });
+      // console.log("당신의 닉네임은? :", response.data.data.nickname);
+      setNickName(response.data.data.nickname);
+    };
+    myName();
+  }, []);
+
+  // 덕담 불러오기
   useEffect(() => {
     const receiveDuckdam = async () => {
       // try {
@@ -124,7 +140,7 @@ function LoginedBody() {
     <>
       <Main>
         <MainWarp>
-          <Title>{receiverId}의 달</Title>
+          <Title>{nickName}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
