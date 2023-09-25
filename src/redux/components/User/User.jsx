@@ -1,4 +1,3 @@
-// user.jsx
 import React, { useEffect } from "react";
 import styles from "./styles";
 import devJeans from "../images/devJeans.png";
@@ -26,9 +25,9 @@ function User() {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [nickName, setNickName] = useState("");
+  const [nickname, setNickname] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [newNickName, setNewNickName] = useState("");
+  const [newNickname, setNewNickname] = useState("");
 
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
@@ -53,27 +52,51 @@ function User() {
           Authorization: `${accessToken}`,
         },
       });
-      // console.log("당신의 닉네임은? :", response.data.data.nickname);
-      setNickName(response.data.data.nickname);
+      setNickname(response.data.data.nickname);
     };
     myName();
-  }, []);
+  }, [accessToken]); // useEffect를 accessToken 의존성 배열로 감싸 갱신할 때마다 호출되도록 변경
 
   const changeNickName = (e) => {
-    setNewNickName(e.target.value);
+    setNewNickname(e.target.value);
   };
 
   const startEditing = () => {
     setIsEditing(true);
   };
 
-  const saveNickName = () => {
-    if (!newNickName) {
+  const saveNickName = async () => {
+    if (!newNickname) {
       alert("새 닉네임을 입력해 주세요!\n(최대 5글자까지 입력 가능)");
       return;
     } else {
-      setNickName(newNickName);
-      setIsEditing(false);
+      const response = await axios.put(
+        "http://54.180.87.103:4000/api/check/newnick",
+        {
+          nickname: newNickname,
+        },
+        {
+          headers: {
+            Authorization: `${accessToken}`,
+          },
+        }
+      );
+
+      const confirmed = window.confirm(
+        `새로운 닉네임으로 변경하시겠습니까?\n"${nickname}" → "${newNickname}"`
+      );
+
+      if (confirmed) {
+        // 변경된 닉네임으로 업데이트
+        setNickname(newNickname);
+        setIsEditing(false);
+        window.location.reload();
+      }
+
+      // if (response.status === 200) {
+      //   setNickname(newNickname);
+      //   setIsEditing(false);
+      // }
     }
   };
 
@@ -96,7 +119,7 @@ function User() {
             <>
               <NewNickName
                 type="text"
-                value={newNickName}
+                value={newNickname}
                 onChange={changeNickName}
                 maxLength={5}
                 placeholder="새로운 닉네임"
@@ -106,6 +129,7 @@ function User() {
                 color={"cancel"}
                 onClick={() => {
                   setIsEditing(false);
+                  setNewNickname(nickname); // 취소 버튼을 누르면 기존 닉네임으로 되돌리기
                 }}
               >
                 취소
@@ -117,7 +141,7 @@ function User() {
           ) : (
             // 편집 모드 아닐 때는 닉네임 표시
             <>
-              <UserName onClick={startEditing}>{nickName}</UserName>
+              <UserName onClick={startEditing}>{nickname}</UserName>
               <FontAwesomeIcon
                 icon={faPencil}
                 style={{

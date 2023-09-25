@@ -22,7 +22,15 @@ function ViewModal({ duckdomData, starStyles }) {
 
   return (
     <>
-      <Star src={star} onClick={() => setOpen(true)} style={starStyles} />
+      <Star
+        src={star}
+        onClick={() =>
+          duckdomData
+            ? setOpen(true)
+            : console.log("남의 덕담을 볼 수 없어요! ⭐️")
+        }
+        style={starStyles}
+      />
       {open && (
         <Modal key={duckdomData.postId}>
           <ModalTitle>
