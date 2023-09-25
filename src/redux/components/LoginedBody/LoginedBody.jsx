@@ -23,17 +23,17 @@ import { useParams } from "react-router-dom";
 import { getCookie } from "../../../token/token";
 
 const START_STYLES = [
-  { top: "19%", right: "20%", width: "100px" },
-  { top: "30%", right: "10%", width: "60px" },
-  { top: "43%", right: "12%", width: "80px" },
-  { top: "55%", right: "25%", width: "80px" },
-  { top: "65%", right: "10%", width: "120px" },
+  { top: "auto", left: "10%", width: "100px" }, // 왼1
+  { top: "30%", right: "10%", width: "60px" }, // 오2
+  { top: "55%", left: "15%", width: "60px" }, // 왼3
+  { top: "38%", left: "25%", width: "80px" }, // 왼4
+  { top: "65%", left: "27%", width: "120px" }, // 왼5
 
-  { top: "auto", left: "10%", width: "100px" },
-  { top: "22%", left: "32%", width: "60px" },
-  { top: "55%", left: "15%", width: "60px" },
-  { top: "38%", left: "25%", width: "80px" },
-  { top: "65%", left: "27%", width: "120px" },
+  { top: "19%", right: "20%", width: "100px" }, // 오1
+  { top: "22%", left: "32%", width: "60px" }, // 왼2
+  { top: "43%", right: "12%", width: "80px" }, // 오3
+  { top: "55%", right: "25%", width: "80px" }, // 오4
+  { top: "65%", right: "10%", width: "120px" }, // 오5
 ];
 
 function LoginedBody() {
