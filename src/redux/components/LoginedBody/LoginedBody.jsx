@@ -47,6 +47,7 @@ function LoginedBody() {
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
   const [nickName, setNickName] = useState("");
   const [randomNickname, setRandomNickname] = useState("");
+  const [randomLength, setRandomLength] = useState(0);
   const navigate = useNavigate();
 
   const refreshToken = getCookie("refreshToken");
@@ -122,6 +123,7 @@ function LoginedBody() {
       },
     });
 
+    console.log("랜덤 페이지 이동:", response.data);
     if (response.status === 200) {
       navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
       setNickName(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
@@ -130,19 +132,6 @@ function LoginedBody() {
       alert("[페이지 이동 오류] 페이지 이동을 할 수 없습니다!");
     }
   };
-
-  // 새로고침 이벤트 발생 시 강제로 마이페이지로 이동
-  // useEffect(() => {
-  //   // receiverId가 변경될 때 실행
-  //   if (Number(userId) === Number(receiverId)) {
-  //     receiveDuckdam();
-  //   }
-
-  //   // 페이지가 처음 로딩될 때 또는 receiverId가 변경될 때 새로고침 로직
-  //   if (window.location.pathname === `/${userId}` || window.location.pathname === `/${receiverId}`) {
-  //     window.location.reload();
-  //   }
-  // }, [receiverId, userId]);
 
   // 랜덤 페이지에 대한 별 갯수 가져오기
   const randomStar = async () => {
@@ -156,7 +145,7 @@ function LoginedBody() {
     );
 
     if (response.status === 200) {
-      console.log(response.data.data.length);
+      setRandomLength(response.data.data.length);
     }
   };
 
@@ -190,18 +179,34 @@ function LoginedBody() {
             <Moon src={moon} alt="moon"></Moon>
             {/* 덕담 보기 */}
             {showOverlay && <SideOverlay onClick={close} />}
-            {duckdomData.slice(0, 10).map((item, index) => {
-              const starStyles = START_STYLES[index]; // 별 갯수만큼 화면에 나타내기
+            {true
+              ? duckdomData.slice(0, 10).map((item, index) => {
+                  const starStyles = START_STYLES[index]; // 별 갯수만큼 화면에 나타내기
 
-              return (
-                <ViewModal
-                  starStyles={starStyles}
-                  close={close}
-                  signOpen={showDuckdom}
-                  duckdomData={item}
-                />
-              );
-            })}
+                  return (
+                    <ViewModal
+                      starStyles={starStyles}
+                      close={close}
+                      signOpen={showDuckdom}
+                      duckdomData={item}
+                    />
+                  );
+                })
+              : new Array(randomLength)
+                  .slice(0, 10)
+                  .fill(undefined)
+                  .map((item, index) => {
+                    const starStyles = START_STYLES[index]; // 별 갯수만큼 화면에 나타내기
+
+                    return (
+                      <ViewModal
+                        starStyles={starStyles}
+                        // close={close}
+                        // signOpen={showDuckdom}
+                        duckdomData={item}
+                      />
+                    );
+                  })}
           </div>
 
           {/* 덕담 주기 */}

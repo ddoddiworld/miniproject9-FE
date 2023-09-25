@@ -40,7 +40,7 @@ function ViewModal({ duckdomData, starStyles }) {
           <ModalBox justify={"start"}>
             <Who>From.</Who>
             <UserRel>{duckdomData.relationship}</UserRel>
-            <UserName>{duckdomData.WriterId}</UserName>
+            <UserName>{duckdomData.nickname}</UserName>
           </ModalBox>
           <ModalBox direction={"column"}>
             <TextArea readOnly value={duckdomData.content}></TextArea>
