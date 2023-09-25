@@ -113,7 +113,7 @@ function LoginedBody() {
     if (Number(userId) === Number(receiverId)) {
       receiveDuckdam();
     }
-  }, []);
+  }, [receiverId]);
 
   // 랜덤 페이지 이동하기 & 닉네임도 같이 바뀌게 하기
   const random = async () => {
@@ -123,7 +123,6 @@ function LoginedBody() {
       },
     });
 
-    console.log("랜덤 페이지 이동:", response.data);
     if (response.status === 200) {
       navigate(`/${response.data.data.userId}`); // 랜덤 유저 방문
       setNickName(response.data.data.nickname); // 랜덤 유저의 닉네임 가져오기
@@ -144,6 +143,10 @@ function LoginedBody() {
       }
     );
 
+    console.log(
+      `${response.data.nickname}이 받은 덕담 갯수 :`,
+      response.data.data.length
+    );
     if (response.status === 200) {
       setRandomLength(response.data.data.length);
     }
@@ -179,7 +182,7 @@ function LoginedBody() {
             <Moon src={moon} alt="moon"></Moon>
             {/* 덕담 보기 */}
             {showOverlay && <SideOverlay onClick={close} />}
-            {true
+            {userId == receiverId
               ? duckdomData.slice(0, 10).map((item, index) => {
                   const starStyles = START_STYLES[index]; // 별 갯수만큼 화면에 나타내기
 
