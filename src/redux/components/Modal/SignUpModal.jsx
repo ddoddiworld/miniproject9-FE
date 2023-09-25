@@ -19,12 +19,20 @@ function SignUpModal({ close, loginOpen }) {
         CloseBtn,
     } = styles;
 
+    // 모달 닫기
     const [closeModal] = useState(true);
+
+    // 회원가입에 사용하는 useState
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [nickname, setnickname] = useState('');
+
     const [isNickNameValid, setIsNickNameValid] = useState(true);
+
+    // 중복검사 여부 확인하는 useState
+    const [isEmailAvailable, setIsEmailAvailable] = useState(false);
+    const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
 
     const [isIdAvailable, setIsIdAvailable] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -53,17 +61,21 @@ function SignUpModal({ close, loginOpen }) {
         }
 
         try {
-            const response = await axios.post(
-                'http://54.180.87.103:4000/api/email',
+            const response = await axios.get(
+                'http://54.180.87.103:4000/api/check/email',
                 {
-                    email,
+                    params: {
+                        email,
+                    },
                 }
             );
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 setIsIdAvailable(true);
+                setIsEmailAvailable(true);
                 alert('사용 가능한 이메일입니다.');
-            } else if (response.status === 412) {
+            } else {
+                setIsEmailAvailable(false);
                 alert('중복 된 이메일입니다.');
             }
         } catch (error) {
@@ -99,16 +111,20 @@ function SignUpModal({ close, loginOpen }) {
         }
 
         try {
-            const response = await axios.post(
-                'http://54.180.87.103:4000/api//NickName',
+            const response = await axios.get(
+                'http://54.180.87.103:4000/api/check/nickname',
                 {
-                    nickname,
+                    params: {
+                        nickname,
+                    },
                 }
             );
 
-            if (response.status === 201) {
+            if (response.status === 200) {
+                setIsNicknameAvailable(true);
                 alert('사용 가능한 닉네임입니다.');
             } else {
+                setIsNicknameAvailable(false);
                 alert('이미 사용 중인 닉네임입니다.');
             }
             console.log(response.status, response.data);
@@ -123,6 +139,11 @@ function SignUpModal({ close, loginOpen }) {
 
     // 회원 가입 (추가)
     const joinHandler = async () => {
+        if (!isEmailAvailable || !isNicknameAvailable) {
+            alert('중복검사를 모두 완료해주세요.');
+            return;
+        }
+
         if (!email || !password || !confirm || !nickname) {
             alert('모든 빈칸을 반드시 입력 해 주세요!');
             return;
