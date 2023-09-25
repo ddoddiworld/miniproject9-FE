@@ -83,19 +83,29 @@ function LoginedBody() {
       if (response.status === 200) {
         setDuckdamData(response.data.data);
       }
+      // console.log(response);
       // } catch (error) {
       //   alert(`[글 가져오기 실패]\n${error.message}`);
       //   console.error("글 가져오기 실패! :", error.message);
       // }
     };
-    receiveDuckdam();
+    console.log(
+      "userId : ",
+      userId,
+      " receiverId : ",
+      receiverId,
+      " isEquals? : " + userId === receiverId
+    );
+    if (Number(userId) === Number(receiverId)) {
+      receiveDuckdam();
+    }
   }, []);
 
   return (
     <>
       <Main>
         <MainWarp>
-          <Title>{userId}의 달</Title>
+          <Title>{receiverId}의 달</Title>
           <SubTitle>고마운 마음을 담아 덕담 한마디 어떨까요?</SubTitle>
 
           <div>
