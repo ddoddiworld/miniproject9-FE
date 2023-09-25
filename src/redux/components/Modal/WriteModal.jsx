@@ -122,7 +122,7 @@ function WriteModal({ close, onWriteComplete }) {
               onChange={(e) => {
                 setContent(e.target.value);
               }}
-              placeholder="덕담을 입력해 주세요."
+              placeholder="덕담을 입력해 주세요.&#13;&#10;지나친 욕설은 운영진에 의해 삭제될 수 있습니다!"
             ></TextArea>
             <ModalBtn onClick={sendDuckdom}>달에게 보내기 </ModalBtn>
           </ModalBox>
