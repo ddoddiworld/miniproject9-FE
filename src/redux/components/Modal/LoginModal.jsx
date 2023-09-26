@@ -91,7 +91,7 @@ function LoginModal({ close, signOpen }) {
             } else {
                 // 서버로 로그인 요청
                 const response = await axios.post(
-                    'http://54.180.87.103:4000/api/signin',
+                    'https://www.totobon6125.store/api/signin',
                     {
                         email,
                         password,
