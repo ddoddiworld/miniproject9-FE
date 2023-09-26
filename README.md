@@ -26,9 +26,9 @@
 <h3> ⚙️ 라이브러리 </h3>
 <h4>패키지</h4>
 
-|<img src="https://www.svgrepo.com/show/354262/react-router.svg" width="50" height="50">|<img src="https://tannerfriedman.com/wp-content/uploads/2022/08/91-913031_axios-axios-logo-hd-png-download.png" width="50">|<img src="https://miro.medium.com/v2/resize:fit:1400/1*5FcvZufrMDzs1ef63NjhXw.jpeg" width="50">|<img src="https://miro.medium.com/v2/resize:fit:400/1*0nHtg7jz-cd49KIb-Za8lg.png" width="50">
-|:---:|:---:|:---:|:---:|
-|React-router|Axios|Thunk|Redux(toolkit)|
+|<img src="https://www.svgrepo.com/show/354262/react-router.svg" width="50" height="50">|<img src="https://tannerfriedman.com/wp-content/uploads/2022/08/91-913031_axios-axios-logo-hd-png-download.png" width="50">|
+|:---:|:---:|
+|React-router|Axios|
 
 
 <h4> 디자인 요소</h4>
