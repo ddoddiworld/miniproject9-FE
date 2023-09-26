@@ -76,7 +76,7 @@ function LoginedBody() {
   useEffect(() => {
     if (receiverId) {
       axios
-        .get(`http://54.180.87.103:4000/api/allposts/${receiverId}`, {
+        .get(`https://www.totobon6125.store/api/allposts/${receiverId}`, {
           headers: {
             Authorization: `${accessToken}`,
           },
@@ -92,36 +92,11 @@ function LoginedBody() {
     }
   }, [receiverId, accessToken]);
 
-  // 닉네임 불러오기
-  useEffect(() => {
-    const fetchNickname = async () => {
-      try {
-        const response = await axios.get(
-          "http://54.180.87.103:4000/api/mypage",
-          {
-            headers: {
-              Authorization: `${accessToken}`,
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          setNickName(response.data.data.nickname);
-        }
-      } catch (error) {
-        alert(`[닉네임 가져오기 오류]\n${error.message}`);
-        console.error("닉네임 가져오기 실패! :", error.message);
-      }
-    };
-
-    fetchNickname(); // 페이지가 로드될 때와 랜덤 페이지 이동 시에 닉네임을 가져옴
-  }, [accessToken]);
-
   // 덕담 불러오기
   useEffect(() => {
     const receiveDuckdam = async () => {
       const response = await axios.get(
-        `http://54.180.87.103:4000/api/receive/${receiverId}`,
+        `https://www.totobon6125.store/api/receive/${receiverId}`,
         {
           headers: {
             Authorization: `${accessToken}`,
@@ -142,21 +117,36 @@ function LoginedBody() {
     );
     if (Number(userId) === Number(receiverId)) {
       receiveDuckdam();
+    } else {
+      (async () => {
+        const receivedCountResponse = await axios.get(
+          `https://www.totobon6125.store/api/allposts/${receiverId}`,
+          {
+            headers: {
+              Authorization: `${accessToken}`,
+            },
+          }
+        );
+        console.log(receivedCountResponse);
+      })();
     }
   }, [receiverId]);
 
   // 랜덤 페이지 이동하기 & 닉네임도 같이 바뀌게 하기
   const random = async () => {
-    const response = await axios.get("http://54.180.87.103:4000/api/random", {
-      headers: {
-        Authorization: `${accessToken}`,
-      },
-    });
+    const response = await axios.get(
+      "https://www.totobon6125.store/api/random",
+      {
+        headers: {
+          Authorization: `${accessToken}`,
+        },
+      }
+    );
 
     if (response.status === 200) {
       const randomReceiverId = response.data.data.userId;
       const receivedCountResponse = await axios.get(
-        `http://54.180.87.103:4000/api/allposts/${randomReceiverId}`,
+        `https://www.totobon6125.store/api/allposts/${randomReceiverId}`,
         {
           headers: {
             Authorization: `${accessToken}`,
@@ -179,7 +169,7 @@ function LoginedBody() {
   // 랜덤 페이지에 대한 별 갯수 가져오기
   const randomStar = async () => {
     const response = await axios.get(
-      `http://54.180.87.103:4000/api/allposts/${receiverId}`,
+      `https://www.totobon6125.store/api/allposts/${receiverId}`,
       {
         headers: {
           Authorization: `${accessToken}`,
@@ -199,11 +189,14 @@ function LoginedBody() {
   // 마이 페이지 이동하기 -> 한번더 mypage api 실행
   const goHome = async () => {
     try {
-      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
-        headers: {
-          Authorization: `${accessToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://www.totobon6125.store/api/mypage",
+        {
+          headers: {
+            Authorization: `${accessToken}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         navigate(`/${userId}`);
@@ -216,9 +209,9 @@ function LoginedBody() {
   };
 
   // 페이지 로드 시 또는 accessToken이 변경될 때 goHome 함수 실행
-  useEffect(() => {
-    goHome();
-  }, [accessToken]);
+  // useEffect(() => {
+  //   goHome();
+  // }, [accessToken]);
 
   return (
     <>

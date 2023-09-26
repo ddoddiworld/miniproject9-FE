@@ -32,11 +32,14 @@ function WriteModal({ close }) {
   // 닉네임 불러오기
   useEffect(() => {
     const myName = async () => {
-      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
-        headers: {
-          Authorization: `${accessToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://www.totobon6125.store/api/mypage",
+        {
+          headers: {
+            Authorization: `${accessToken}`,
+          },
+        }
+      );
       // console.log("당신의 닉네임은? :", response.data.data.nickname);
       setNickName(response.data.data.nickname);
     };
@@ -57,7 +60,7 @@ function WriteModal({ close }) {
     try {
       // 요청 보내기
       const response = await axios.post(
-        `http://54.180.87.103:4000/api/posts/${receiverId}`,
+        `https://www.totobon6125.store/api/posts/${receiverId}`,
         {
           userId,
           receiverId,

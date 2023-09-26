@@ -47,11 +47,14 @@ function User() {
   // 닉네임 불러오기 (사이드바)
   useEffect(() => {
     const myName = async () => {
-      const response = await axios.get("http://54.180.87.103:4000/api/mypage", {
-        headers: {
-          Authorization: `${accessToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://www.totobon6125.store/api/mypage",
+        {
+          headers: {
+            Authorization: `${accessToken}`,
+          },
+        }
+      );
       setNickname(response.data.data.nickname);
     };
     myName();
@@ -71,7 +74,7 @@ function User() {
       return;
     } else {
       const response = await axios.put(
-        "http://54.180.87.103:4000/api/check/newnick",
+        "https://www.totobon6125.store/api/check/newnick",
         {
           nickname: newNickname,
         },
