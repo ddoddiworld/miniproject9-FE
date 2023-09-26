@@ -6,17 +6,14 @@ import {
   SubTitle,
   StyledBtn,
   Moon,
-  Star,
   SideOverlay,
 } from "./styles";
 import moon from "../images/moon2.png";
-import star from "../images/star2.png";
 import User from "../User/User";
 import WriteModal from "../Modal/WriteModal";
 import ViewModal from "../Modal/ViewModal";
 import { useState } from "react";
-import { isUserLoggedIn } from "../../../token/token";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
@@ -72,7 +69,7 @@ function LoginedBody() {
     setOpenViewModal(true);
   };
 
-  // randomLength를 업데이트하는 useEffect
+  // [useEffect] 덕담 갯수 표시하기
   useEffect(() => {
     if (receiverId) {
       axios
@@ -92,7 +89,7 @@ function LoginedBody() {
     }
   }, [receiverId, accessToken]);
 
-  // 덕담 불러오기
+  // [useEffect] 나의 덕담 불러오기
   useEffect(() => {
     const receiveDuckdam = async () => {
       const response = await axios.get(
@@ -127,7 +124,12 @@ function LoginedBody() {
             },
           }
         );
-        console.log(receivedCountResponse);
+        console.log("data확인 :", receivedCountResponse);
+        // console.log(
+        //   "닉네임 가져오기:",
+        //   receivedCountResponse.data.nicks.User.UserInfos.nickname
+        // );
+        setNickName(receivedCountResponse.data.nicks.User.UserInfos.nickname);
       })();
     }
   }, [receiverId]);
@@ -166,25 +168,25 @@ function LoginedBody() {
     }
   };
 
-  // 랜덤 페이지에 대한 별 갯수 가져오기
-  const randomStar = async () => {
-    const response = await axios.get(
-      `https://www.totobon6125.store/api/allposts/${receiverId}`,
-      {
-        headers: {
-          Authorization: `${accessToken}`,
-        },
-      }
-    );
+  // [미사용?] 랜덤 페이지에 대한 별 갯수 가져오기
+  // const randomStar = async () => {
+  //   const response = await axios.get(
+  //     `https://www.totobon6125.store/api/allposts/${receiverId}`,
+  //     {
+  //       headers: {
+  //         Authorization: `${accessToken}`,
+  //       },
+  //     }
+  //   );
 
-    console.log(
-      `${response.data.nickname}이 받은 덕담 갯수 :`,
-      response.data.data.length
-    );
-    if (response.status === 200) {
-      setRandomLength(response.data.data.length);
-    }
-  };
+  //   console.log(
+  //     `${response.data.nickname}이 받은 덕담 갯수 :`,
+  //     response.data.data.length
+  //   );
+  //   if (response.status === 200) {
+  //     setRandomLength(response.data.data.length);
+  //   }
+  // };
 
   // 마이 페이지 이동하기 -> 한번더 mypage api 실행
   const goHome = async () => {
@@ -207,11 +209,6 @@ function LoginedBody() {
       console.error("마이 페이지 이동 실패! :", error.message);
     }
   };
-
-  // 페이지 로드 시 또는 accessToken이 변경될 때 goHome 함수 실행
-  // useEffect(() => {
-  //   goHome();
-  // }, [accessToken]);
 
   return (
     <>
@@ -244,12 +241,7 @@ function LoginedBody() {
                     const starStyles = START_STYLES[index]; // 별 갯수만큼 화면에 나타내기
 
                     return (
-                      <ViewModal
-                        starStyles={starStyles}
-                        // close={close}
-                        // signOpen={showDuckdom}
-                        duckdomData={item}
-                      />
+                      <ViewModal starStyles={starStyles} duckdomData={item} />
                     );
                   })}
           </div>
