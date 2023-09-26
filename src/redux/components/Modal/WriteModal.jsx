@@ -6,7 +6,7 @@ import { getCookie } from "../../../token/token";
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
 
-function WriteModal({ close, onWriteComplete }) {
+function WriteModal({ close }) {
   const {
     Modal,
     ModalTitle,
@@ -25,7 +25,6 @@ function WriteModal({ close, onWriteComplete }) {
   const { receiverId } = useParams();
   const [relationship, setRelationship] = useState("할아버지 / 할머니");
   const [content, setContent] = useState("");
-  const [data, setData] = useState(null); // 응답 데이터 저장
   const [nickName, setNickName] = useState("");
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");

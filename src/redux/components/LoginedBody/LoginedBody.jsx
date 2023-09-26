@@ -46,7 +46,6 @@ function LoginedBody() {
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openDuckdomModal, setOpenDuckdomModal] = useState(false);
   const [nickName, setNickName] = useState("");
-  const [randomNickname, setRandomNickname] = useState("");
   const [randomLength, setRandomLength] = useState(0);
   const navigate = useNavigate();
 
