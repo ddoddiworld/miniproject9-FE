@@ -76,7 +76,6 @@ function WriteModal({ close, onWriteComplete }) {
 
       if (response.status === 200) {
         alert("덕담 보내기 완료! 🐰");
-        // onWriteComplete({ userId, receiverId, relationship, content });
       }
 
       // 412 : 스스로에게 덕담 작성하면 발생하는 오류인데 아래 코드가 안먹힘..! 추후 확인 예정
