@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 
+// 이 후에 Styled components인지 한 눈에 알아볼 수 있도록 St붙이기
 const Modal = styled.div`
     position: absolute;
     top: 30%;

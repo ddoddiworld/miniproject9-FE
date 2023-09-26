@@ -19,10 +19,10 @@ function SignUpModal({ close, loginOpen }) {
         CloseBtn,
     } = styles;
 
-    // 모달 닫기
+    //! 모달 닫기
     const [closeModal] = useState(true);
 
-    // 회원가입에 사용하는 useState
+    //! 회원가입에 사용하는 useState
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
@@ -30,14 +30,14 @@ function SignUpModal({ close, loginOpen }) {
 
     const [isNickNameValid, setIsNickNameValid] = useState(true);
 
-    // 중복검사 여부 확인하는 useState
+    //! 중복검사 여부 확인하는 useState
     const [isEmailAvailable, setIsEmailAvailable] = useState(false);
     const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
 
     const [isIdAvailable, setIsIdAvailable] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
 
-    // 이메일, 비밀번호 체크
+    //! 이메일, 비밀번호 체크
     const emailRegex = new RegExp(
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     );
@@ -45,7 +45,7 @@ function SignUpModal({ close, loginOpen }) {
 
     const Regex = new RegExp(/\W|\s/g);
 
-    // 엔터키로 회원가입 버튼 누르기
+    //! 엔터키로 회원가입 버튼 누르기
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             // 엔터 키가 눌렸을 때 로그인 처리 함수 호출
@@ -53,7 +53,7 @@ function SignUpModal({ close, loginOpen }) {
         }
     };
 
-    // 아이디 중복 검사 함수
+    //! 아이디 중복 검사 함수
     const checkId = async () => {
         if (!email) {
             setErrorMessage('이메일을 입력해 주세요.');
@@ -87,7 +87,7 @@ function SignUpModal({ close, loginOpen }) {
         }
     };
 
-    // 닉네임 검사
+    //! 닉네임 검사
     const handleNickNameChange = (e) => {
         const newnickname = e.target.value;
         // 닉네임에 공백이 있는지 검사
@@ -103,13 +103,16 @@ function SignUpModal({ close, loginOpen }) {
         setnickname(newnickname); // 상태 업데이트
     };
 
-    // 닉네임 중복 검사 함수
+    //! 닉네임 중복 검사 함수
     const checkNickName = async () => {
         if (!nickname) {
             alert('닉네임을 입력해 주세요.');
             return;
         }
 
+        // get으로 요청하여 params 사용?
+        // URL 파라미터는 클라이언트와 서버 간의 데이터 교환 및 리소스 식별에 사용되며, 다양한 웹 애플리케이션의 요구 사항을 충족시키기 위한 중요한 요소
+        // 서버에서 데이터를 받을 떄 body가 아닌 query로 받아야 된다고 함.
         try {
             const response = await axios.get(
                 'http://54.180.87.103:4000/api/check/nickname',
@@ -137,8 +140,9 @@ function SignUpModal({ close, loginOpen }) {
         }
     };
 
-    // 회원 가입 (추가)
+    //! 회원 가입 (추가)
     const joinHandler = async () => {
+        // 각 input에 맞는 alert창 띄우기
         if (!isEmailAvailable || !isNicknameAvailable) {
             alert('중복검사를 모두 완료해주세요.');
             return;
