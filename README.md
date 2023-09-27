@@ -3,11 +3,12 @@
 </br>
 
 <img src="https://github.com/ddoddiworld/miniproject9-fe/assets/93027502/683de654-d391-40c3-b73a-418b3ceb3e92" width="250"/></br>
-고마운 마음을 담아 서로에게 덕담 한마디 어떨까요?
+고마운 마음을 담아 서로에게 덕담 한마디 어떨까요? </br>
+🔗 https://www.miricanvas.com/v/12frofc
 
 </br>
 
-<h3><a href="https://www.miricanvas.com/v/12frofc">👥 FE 개발</a></h3>
+<h3>👥 FE 개발</h3>
 
 |김연수|장소영|
 |:---:|:---:|
