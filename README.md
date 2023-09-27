@@ -7,7 +7,7 @@
 
 </br>
 
-<h3>👥 FE 개발</h3>
+<h3><a href="https://www.miricanvas.com/v/12frofc">👥 FE 개발</a></h3>
 
 |김연수|장소영|
 |:---:|:---:|
