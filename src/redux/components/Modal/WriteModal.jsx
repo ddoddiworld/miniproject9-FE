@@ -21,7 +21,6 @@ function WriteModal({ close }) {
 
   const [closeModal] = useState(true);
 
-  // 덕담 저장하기
   const { receiverId } = useParams();
   const [relationship, setRelationship] = useState("할아버지 / 할머니");
   const [content, setContent] = useState("");
@@ -29,7 +28,9 @@ function WriteModal({ close }) {
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
 
-  // 닉네임 불러오기
+  /**
+   * //* 닉네임 불러오기
+   */
   useEffect(() => {
     const myName = async () => {
       const response = await axios.get(
@@ -40,17 +41,18 @@ function WriteModal({ close }) {
           },
         }
       );
-      // console.log("당신의 닉네임은? :", response.data.data.nickname);
       setNickName(response.data.data.nickname);
     };
     myName();
   }, []);
 
+  /**
+   * //* 덕담 작성하기(보내기)
+   */
   const sendDuckdom = async () => {
-    // 토큰 가져오기 (access, refresh)
-    const refreshToken = getCookie("refreshToken"); // 0923 accessToken으로는 인증 불가로 refreshToken으로 인증
+    const refreshToken = getCookie("refreshToken");
     const accessToken = getCookie("accessToken");
-    const userId = jwt_decode(accessToken).userId; // 로그인한 사용자 ID
+    const userId = jwt_decode(accessToken).userId;
 
     if (!content) {
       alert("덕담을 입력해 주세요 🐰");

@@ -28,10 +28,12 @@ function User() {
   const [nickname, setNickname] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [newNickname, setNewNickname] = useState("");
-
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
 
+  /**
+   * //*사이드 바 동적 움직임 관련 코드
+   */
   const toggleSide = () => {
     setIsOpen(!isOpen);
   };
@@ -44,7 +46,9 @@ function User() {
     display: isOpen ? "block" : "none",
   };
 
-  // 닉네임 불러오기 (사이드바)
+  /**
+   * //*[useEffect] 나의 닉네임 불러오기
+   */
   useEffect(() => {
     const myName = async () => {
       const response = await axios.get(
@@ -60,14 +64,17 @@ function User() {
     myName();
   }, [accessToken]); // useEffect를 accessToken 의존성 배열로 감싸 갱신할 때마다 호출되도록 변경
 
+  //* 닉네임 변경
   const changeNickName = (e) => {
     setNewNickname(e.target.value);
   };
 
+  //* 닉네임을 클릭하면 닉네임을 작성할 수 있도록 변경
   const startEditing = () => {
     setIsEditing(true);
   };
 
+  //* 닉네임 변경 후 저장 : 서버로 변경된 닉네임 보내기 + 페이지 리로드로 변경사항 적용
   const saveNickName = async () => {
     if (!newNickname) {
       alert("새 닉네임을 입력해 주세요!\n(최대 5글자까지 입력 가능)");
@@ -95,14 +102,12 @@ function User() {
         setIsEditing(false);
         window.location.reload();
       }
-
-      // if (response.status === 200) {
-      //   setNickname(newNickname);
-      //   setIsEditing(false);
-      // }
     }
   };
 
+  /**
+   * //* 로그아웃 : 모든 토큰 제거
+   */
   const logoutHandler = () => {
     removeCookie("accessToken");
     removeCookie("refreshToken");
@@ -118,7 +123,7 @@ function User() {
         <UserImg src={devJeans}></UserImg>
         <NickName>
           {isEditing ? (
-            // 입력 필드 표시
+            //! 입력 필드 표시 (수정 중일때 상태)
             <>
               <NewNickName
                 type="text"
@@ -142,7 +147,7 @@ function User() {
               </NewNickBtn>
             </>
           ) : (
-            // 편집 모드 아닐 때는 닉네임 표시
+            //! 편집 모드 아닐 때는 닉네임 표시
             <>
               <UserName onClick={startEditing}>{nickname}</UserName>
               <FontAwesomeIcon

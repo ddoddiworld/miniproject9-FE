@@ -4,6 +4,10 @@ import { useState } from "react";
 import star from "../images/star2.png";
 import { Star } from "../LoginedBody/styles";
 
+/**
+ * //* 받은 덕담 보기
+ * //* 개인의 덕담만 확인 가능하며 타인의 덕담의 경우 볼 수 없음
+ */
 function ViewModal({ duckdomData, starStyles }) {
   const {
     Modal,
